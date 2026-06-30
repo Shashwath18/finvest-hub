@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinVest Hub — Curating Financial Literacy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Toast Notification Overlay -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Left Sidebar Navigation Panel -->
+  <aside class="app-sidebar" id="app-sidebar">
+    <div class="sidebar-header">
+      <a href="#home" class="sidebar-logo">⚡ FinVest<span>HUB</span></a>
+      <button class="mobile-close-btn" id="mobile-sidebar-close" title="Close menu">✕</button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="#home" class="sidebar-link active"><span class="icon">🏠</span> Home</a>
+      <a href="#news" class="sidebar-link"><span class="icon">📰</span> News</a>
+      <a href="#articles" class="sidebar-link"><span class="icon">📝</span> Articles</a>
+      <a href="#calculators" class="sidebar-link"><span class="icon">🧮</span> Calculators</a>
+      <a href="#credit-cards" class="sidebar-link"><span class="icon">💳</span> Credit Cards</a>
+      <a href="#investing" class="sidebar-link"><span class="icon">💹</span> Investing</a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="profile-dropdown">
+        <button id="nav-user-btn" class="sidebar-user-btn" title="Profile Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span id="sidebar-user-name">Account</span>
+        </button>
+        <div class="dropdown-menu" id="user-dropdown-menu">
+          <!-- Dynamic dropdown options -->
+        </div>
+      </div>
+      <button id="nav-theme-btn" class="theme-toggle-btn" title="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Mobile Top Bar Header -->
+  <header class="mobile-header">
+    <button class="hamburger-menu-btn" id="mobile-sidebar-toggle" title="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="#home" class="mobile-logo">⚡ FinVest<span>HUB</span></a>
+    <div style="width:24px;"></div> <!-- Spacer -->
+  </header>
+
+  <div class="app-layout-wrapper">
+    <div class="app-main-content">
+      <!-- Main View Routing Panels -->
+      <main class="app-main">
+
+        <!-- ── 1. HOME VIEW ────────────────────────── -->
+        <section id="view-home" class="app-view active">
+          <div class="home-hero-layout">
+            <div class="hero-text-col">
+              <h1>Master Your Wealth, Step by Step.</h1>
+              <p>Explore free interactive compound calculators and learn investing methodologies without confusing financial jargon.</p>
+              <div style="display:flex; gap:1rem;">
+                <a href="#calculators" class="btn primary">Try Calculators</a>
+              </div>
+            </div>
+        <div class="hero-interactive-col checkout-panel">
+          <h3>Quick SIP Estimator</h3>
+          <div class="calc-field-group">
+            <label>Monthly Contribution: <span id="quick-sip-amt-val">₹5,000</span></label>
+            <input type="range" id="quick-sip-amt" min="1000" max="100000" step="500" value="5000">
+          </div>
+          <div class="calc-field-group" style="margin-top:1rem;">
+            <label>Expected Return: <span id="quick-sip-rate-val">12%</span></label>
+            <input type="range" id="quick-sip-rate" min="5" max="30" step="1" value="12">
+          </div>
+          <div class="calc-result-box" style="margin-top:1.5rem; background:rgba(16,185,129,0.06); padding:1rem; border-radius:8px;">
+            <div style="font-size:0.75rem; opacity:0.6; text-transform:uppercase;">10-Year Corpus Value</div>
+            <div id="quick-sip-result" style="font-size:1.8rem; font-weight:900; color:var(--color-accent); font-family:var(--font-display);">₹11,61,695</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explore FinVest Hub Grid -->
+      <div class="home-section-container" style="margin-top:2rem; margin-bottom:2rem;">
+        <h2 class="section-title">Explore FinVest Hub</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; margin-top:1rem;">
+          <div class="checkout-panel" style="cursor:pointer; display:flex; flex-direction:column; gap:0.5rem; text-align:center; padding:1.5rem; hover:transform:translateY(-2px); transition:all 0.2s;" onclick="window.location.hash = '#articles'">
+            <span style="font-size:2rem;">📝</span>
+            <h3 style="margin:0; font-size:1.1rem; color:var(--color-accent);">Financial Articles</h3>
+            <p style="font-size:0.8rem; opacity:0.75; line-height:1.4; margin:0;">Read structured guides on budgeting, retirement, and index planning.</p>
+          </div>
+          <div class="checkout-panel" style="cursor:pointer; display:flex; flex-direction:column; gap:0.5rem; text-align:center; padding:1.5rem; hover:transform:translateY(-2px); transition:all 0.2s;" onclick="window.location.hash = '#calculators'">
+            <span style="font-size:2rem;">🧮</span>
+            <h3 style="margin:0; font-size:1.1rem; color:var(--color-accent);">Interactive Calculators</h3>
+            <p style="font-size:0.8rem; opacity:0.75; line-height:1.4; margin:0;">Compute SIP compounding, loan EMIs, and debt payoff acceleration schedules.</p>
+          </div>
+          <div class="checkout-panel" style="cursor:pointer; display:flex; flex-direction:column; gap:0.5rem; text-align:center; padding:1.5rem; hover:transform:translateY(-2px); transition:all 0.2s;" onclick="window.location.hash = '#credit-cards'">
+            <span style="font-size:2rem;">💳</span>
+            <h3 style="margin:0; font-size:1.1rem; color:var(--color-accent);">Credit Cards Portal</h3>
+            <p style="font-size:0.8rem; opacity:0.75; line-height:1.4; margin:0;">Compare rewards, track minimum payments, and check issuer eligibility.</p>
+          </div>
+          <div class="checkout-panel" style="cursor:pointer; display:flex; flex-direction:column; gap:0.5rem; text-align:center; padding:1.5rem; hover:transform:translateY(-2px); transition:all 0.2s;" onclick="window.location.hash = '#investing'">
+            <span style="font-size:2rem;">💹</span>
+            <h3 style="margin:0; font-size:1.1rem; color:var(--color-accent);">Investing Basics</h3>
+            <p style="font-size:0.8rem; opacity:0.75; line-height:1.4; margin:0;">Master asset allocation, portfolio diversification, ETFs, and mutual funds.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Finance News -->
+      <div class="home-section-container" style="margin-top:3rem; margin-bottom:3rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+          <h2 class="section-title" style="margin:0;">📰 Latest Finance News</h2>
+          <a href="#news" class="btn outline" style="padding:0.4rem 1.2rem; font-size:0.8rem;">View All News</a>
+        </div>
+        
+        <div class="news-home-layout" style="display:grid; grid-template-columns:3fr 2fr; gap:2.5rem;">
+          <!-- Left side: Featured Hero News & Grid -->
+          <div>
+            <div id="home-news-featured">
+              <!-- Dynamically rendered Featured news hero card -->
+            </div>
+            <div id="home-news-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem; margin-top:1.5rem;">
+              <!-- Dynamically rendered latest news cards -->
+            </div>
+          </div>
+          
+          <!-- Right side: Trending, Categories, Search -->
+          <div style="display:flex; flex-direction:column; gap:2rem;">
+            <div class="checkout-panel" style="padding:1.5rem;">
+              <h3 style="margin-top:0; font-size:1.1rem; color:var(--color-accent); margin-bottom:1rem;">🔍 Search News</h3>
+              <div style="display:flex; gap:0.5rem;">
+                <input type="text" id="home-news-search-input" placeholder="Search news..." style="flex:1; padding:0.5rem 0.75rem; border-radius:8px; border:1px solid var(--color-border); background:var(--color-bg); color:var(--color-text); font-size:0.85rem;">
+                <button id="home-news-search-btn" class="btn primary" style="padding:0.5rem 1rem;">Go</button>
+              </div>
+            </div>
+            
+            <div class="checkout-panel" style="padding:1.5rem;">
+              <h3 style="margin-top:0; font-size:1.1rem; color:var(--color-accent); margin-bottom:1rem;">🔥 Trending & Popular</h3>
+              <div id="home-news-trending-list" style="display:flex; flex-direction:column; gap:1rem;">
+                <!-- Dynamically rendered trending list -->
+              </div>
+            </div>
+            
+            <div class="checkout-panel" style="padding:1.5rem;">
+              <h3 style="margin-top:0; font-size:1.1rem; color:var(--color-accent); margin-bottom:1rem;">📁 News Categories</h3>
+              <div id="home-news-categories" style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+                <!-- Dynamically rendered categories -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Financial Insights row -->
+      <div class="home-section-container">
+        <h2 class="section-title">Latest Financial Insights</h2>
+        <div class="articles-vertical-list" id="home-posts-list" style="display:grid; grid-template-columns:1fr; gap:1.5rem;">
+          <!-- Dynamic article rows -->
+        </div>
+      <div class="checkout-panel" style="margin-top:3rem; padding:2rem; text-align:center; max-width:600px; margin-left:auto; margin-right:auto;">
+        <h3>Subscribe to FinVest Drops</h3>
+        <p style="margin-bottom:1.5rem; opacity:0.8;">Get weekly checklists on tax-saving investments, SIP metrics, and market glossary updates directly in your inbox.</p>
+        <form id="home-newsletter-form" style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+          <input type="email" id="home-newsletter-email" placeholder="name@email.com" required style="max-width:350px; flex:1; min-width:200px; padding:0.75rem; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px;">
+          <button type="submit" class="btn primary" style="padding:0.75rem 2rem;">Join Free</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ── 2B. DEDICATED NEWS PAGE VIEW ───────── -->
+    <section id="view-news" class="app-view">
+      <div class="view-header-title">
+        <h1>📰 Financial News Hub</h1>
+        <p>Stay informed with breaking news, trending financial coverage, and economic reports.</p>
+      </div>
+
+      <!-- Breadcrumbs -->
+      <nav class="news-breadcrumbs" style="font-size:0.8rem; margin-bottom:1.5rem; opacity:0.75;">
+        <a href="#home">Home</a> &gt; <span style="color:var(--color-accent);">News</span>
+      </nav>
+
+      <!-- News Page Layout Split -->
+      <div class="news-page-layout" style="display:grid; grid-template-columns:3fr 1fr; gap:2.5rem;">
+        <!-- Left Side: Search, Categories, Latest News Grid, Pagination -->
+        <div>
+          <!-- Search & Filter bar -->
+          <div class="checkout-panel" style="padding:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.25rem; margin-bottom:2rem;">
+            <div style="display:flex; gap:0.5rem; flex:1; min-width:260px;">
+              <input type="text" id="news-search-input" placeholder="Search news..." style="flex:1; padding:0.5rem 1rem; border-radius:8px; border:1px solid var(--color-border); background:var(--color-bg); color:var(--color-text); font-size:0.88rem;">
+              <button id="news-search-btn" class="btn primary" style="padding:0.5rem 1.25rem;">Search</button>
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+              <label style="font-size:0.85rem; opacity:0.8;">Category:</label>
+              <select id="news-category-filter" style="padding:0.5rem; border-radius:8px; border:1px solid var(--color-border); background:var(--color-bg); color:var(--color-text); font-size:0.85rem;">
+                <option value="">All Categories</option>
+                <option value="Personal Finance">Personal Finance</option>
+                <option value="Investing">Investing</option>
+                <option value="Taxes & Retirement">Taxes & Retirement</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Breaking News Banner slot -->
+          <div id="news-breaking-banner" style="margin-bottom:2rem; display:none;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <h2 style="font-size:1.4rem; margin-bottom:1.25rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem;">Latest News Coverage</h2>
+          <div id="news-feed-grid" style="display:grid; grid-template-columns:1fr; gap:1.75rem;">
+            <!-- Dynamically rendered latest news cards list -->
+          </div>
+
+          <!-- Pagination -->
+          <div class="news-pagination" style="display:flex; justify-content:center; align-items:center; gap:0.75rem; margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--color-border);">
+            <button id="news-page-prev" class="btn outline" style="padding:0.4rem 1rem; font-size:0.8rem;">&larr; Previous</button>
+            <span id="news-page-info" style="font-size:0.85rem; opacity:0.8;">Page 1 of 1</span>
+            <button id="news-page-next" class="btn outline" style="padding:0.4rem 1rem; font-size:0.8rem;">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Right Side: Trending list, related tags -->
+        <aside style="display:flex; flex-direction:column; gap:2rem;">
+          <div class="checkout-panel" style="padding:1.5rem;">
+            <h3 style="margin-top:0; font-size:1.1rem; color:var(--color-accent); margin-bottom:1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem;">🔥 Trending Now</h3>
+            <div id="news-sidebar-trending" style="display:flex; flex-direction:column; gap:1.25rem;">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+          
+          <div class="checkout-panel" style="padding:1.5rem;">
+            <h3 style="margin-top:0; font-size:1.1rem; color:var(--color-accent); margin-bottom:1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem;">💡 Popular Tags</h3>
+            <div id="news-sidebar-tags" style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ── 2C. DEDICATED NEWS DETAIL VIEW ─────── -->
+    <section id="view-news-detail" class="app-view">
+      <!-- Breadcrumbs -->
+      <nav class="news-detail-breadcrumbs" style="font-size:0.8rem; margin-bottom:1.5rem; opacity:0.75;">
+        <a href="#home">Home</a> &gt; <a href="#news">News</a> &gt; <span id="news-detail-breadcrumb-active" style="color:var(--color-accent);">Article Headline</span>
+      </nav>
+
+      <div class="news-detail-layout" style="display:grid; grid-template-columns:3fr 1fr; gap:2.5rem;">
+        <!-- Left Side: News Article content -->
+        <article class="checkout-panel" style="padding:2.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <span class="meta-category-badge" id="news-art-category" style="background:var(--color-accent-glow); color:var(--color-accent); padding:0.25rem 0.75rem; border-radius:50px; font-size:0.75rem; font-weight:700;">Category</span>
+            <div style="display:flex; gap:0.5rem;" id="news-art-badges">
+              <!-- Breaking / Featured / Trending badges -->
+            </div>
+          </div>
+
+          <h1 id="news-art-title" style="font-size:2.2rem; line-height:1.25; margin-bottom:1.25rem; font-family:var(--font-display);">Headline</h1>
+          
+          <div class="news-author-meta" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--color-border); padding-bottom:1.25rem; margin-bottom:1.5rem; font-size:0.82rem; opacity:0.85;">
+            <div>
+              By <strong id="news-art-author">Author</strong> • <span id="news-art-date">Date</span>
+            </div>
+            <div>
+              <span id="news-art-views">0</span> views • <span id="news-art-reading-time">0</span> min read
+            </div>
+          </div>
+
+          <div style="margin-bottom:2rem; border-radius:12px; overflow:hidden; max-height:440px;">
+            <img id="news-art-image" src="" alt="Featured image" style="width:100%; height:auto; object-fit:cover;">
+          </div>
+
+          <p id="news-art-description" style="font-size:1.15rem; font-weight:600; line-height:1.6; margin-bottom:1.5rem; opacity:0.95;">Short Description</p>
+          <div id="news-art-content" style="line-height:1.8; font-size:1rem; margin-bottom:2rem;">
+            Full content...
+          </div>
+
+          <!-- Share buttons & Like -->
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--color-border); padding-top:1.5rem; margin-top:2rem; flex-wrap:wrap; gap:1rem;">
+            <button id="news-art-like-btn" class="btn outline" style="padding:0.5rem 1.25rem; font-size:0.88rem;">❤️ Like (<span id="news-art-likes-count">0</span>)</button>
+            
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span style="font-size:0.85rem; opacity:0.8;">Share Article:</span>
+              <button class="btn outline news-share-btn" data-share="twitter" style="padding:0.4rem 0.8rem; font-size:0.78rem;">Twitter</button>
+              <button class="btn outline news-share-btn" data-share="linkedin" style="padding:0.4rem 0.8rem; font-size:0.78rem;">LinkedIn</button>
+              <button class="btn outline news-share-btn" data-share="link" style="padding:0.4rem 0.8rem; font-size:0.78rem;">Copy Link</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Right Side: Related News / Sidebar ads -->
+        <aside style="display:flex; flex-direction:column; gap:2rem;">
+          <div class="checkout-panel" style="padding:1.5rem;">
+            <h3 style="margin-top:0; font-size:1.1rem; color:var(--color-accent); margin-bottom:1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem;">Related News</h3>
+            <div id="news-sidebar-related" style="display:flex; flex-direction:column; gap:1.25rem;">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ── 2. ARTICLES VIEW ────────────────────── -->
+    <section id="view-articles" class="app-view">
+      <div class="view-header-title">
+        <h1>Financial Insights</h1>
+        <p>Curated guides on budgeting, retirement indexes, and investment strategies.</p>
+      </div>
+
+      <div class="toolbar-wrapper">
+        <div class="filter-group">
+          <select id="article-cat-filter">
+            <option value="">All Categories</option>
+          </select>
+          <input type="text" id="article-search-input" placeholder="Search guides...">
+        </div>
+      </div>
+
+      <div class="articles-grid-layout" id="articles-posts-grid">
+        <!-- Dynamic post cards -->
+      </div>
+    </section>
+
+    <!-- ── 3. SINGLE ARTICLE DETAIL VIEW ───────── -->
+    <section id="view-article-detail" class="app-view">
+      <!-- Legal Disclaimer Banner -->
+      <div class="legal-disclaimer-banner" style="background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.18); border-radius:12px; padding:1.25rem; margin-bottom:2rem; font-size:0.8rem; line-height:1.6; color:var(--color-text); opacity:0.95;">
+        <strong>⚠️ Legal Disclaimer:</strong> The content published on this website is provided solely for educational and informational purposes. Nothing on this website constitutes financial, investment, legal, tax, accounting, or professional advice. Investing involves risk. Please conduct your own research or consult a certified professional before making any financial decisions.
+      </div>
+      <article class="article-details-container">
+        <div class="meta-category-badge" id="post-detail-cat">Category</div>
+        <h1 class="article-title-main" id="post-detail-title">Loading Title...</h1>
+        
+        <div class="author-details-bar">
+          <img id="post-detail-avatar" src="" alt="Author avatar">
+          <div>
+            <div class="author-name" id="post-detail-author">Author</div>
+            <div class="post-date" id="post-detail-date">Date</div>
+          </div>
+          <div class="views-meta" id="post-detail-views">0 views</div>
+        </div>
+
+        <div class="article-hero-wrap">
+          <img id="post-detail-hero" src="" alt="Cover Image">
+        </div>
+
+        <div class="article-split-layout">
+          <div class="article-content-body" id="post-detail-content">
+            <!-- Parsed Content -->
+          </div>
+          <aside class="article-sidebar-col">
+            <div class="post-action-panel">
+              <button class="post-act-btn" id="post-detail-like-btn">❤️ Like</button>
+              <button class="post-act-btn" id="post-detail-bookmark-btn">🔖 Save</button>
+            </div>
+            <!-- In-Article Ad Slot -->
+            <div class="in-article-ad-placement" id="ad-in-article"></div>
+          </aside>
+        </div>
+
+        <div class="discussion-section">
+          <h3>Comments (<span id="comments-count">0</span>)</h3>
+          <div id="new-comment-container"></div>
+          <div class="comments-list" id="comments-list-box"></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ── 4. CALCULATORS VIEW ─────────────────── -->
+    <section id="view-calculators" class="app-view">
+      <div class="view-header-title">
+        <h1>Finance & Investment Calculators</h1>
+        <p>Run compound growth simulations, retirement milestones, and loan amortization timelines instantly.</p>
+      </div>
+      <!-- Legal Disclaimer Banner -->
+      <div class="legal-disclaimer-banner" style="background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.18); border-radius:12px; padding:1.25rem; margin-bottom:2rem; font-size:0.8rem; line-height:1.6; color:var(--color-text); opacity:0.95;">
+        <strong>⚠️ Legal Disclaimer:</strong> Calculators, projections, and financial tools provide estimates only and should not be relied upon as exact financial, tax, or investment advice. Nothing on this website constitutes financial or professional advice. Please consult a qualified advisor before taking any financial action.
+      </div>
+
+      <!-- Calculators tab switch -->
+      <div class="calc-tabs-bar">
+        <button class="calc-tab-btn active" data-calc="sip">SIP & Compound</button>
+        <button class="calc-tab-btn" data-calc="emi">Mortgage Loan EMI</button>
+        <button class="calc-tab-btn" data-calc="payoff">Loan Payoff</button>
+      </div>
+
+      <!-- SIP & Compound Panel -->
+      <div id="calc-panel-sip" class="calc-content-panel active">
+        <div class="calc-grid-layout">
+          <div class="calc-inputs-col checkout-panel">
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Investment Type</label>
+              <select id="sip-type">
+                <option value="sip">Monthly SIP</option>
+                <option value="lump">Lump Sum</option>
+              </select>
+            </div>
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Amount (₹)</label>
+              <input type="number" id="sip-amount" value="5000" min="100">
+            </div>
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Expected Return Rate (% p.a.)</label>
+              <input type="number" id="sip-rate" value="12" min="1" max="50">
+            </div>
+            <div class="field-group" style="margin-bottom:1.5rem;">
+              <label>Investment Term (Years)</label>
+              <input type="number" id="sip-years" value="10" min="1" max="40">
+            </div>
+            <button id="btn-run-sip" class="btn primary w-full">Calculate Compounding</button>
+          </div>
+
+          <div class="calc-results-col checkout-panel">
+            <h3>Calculated Wealth Projections</h3>
+            <div class="results-value-grid">
+              <div>
+                <span>Total Invested</span>
+                <h4 id="sip-res-invested">₹0</h4>
+              </div>
+              <div>
+                <span>Wealth Gained</span>
+                <h4 id="sip-res-gained" style="color:var(--color-accent);">₹0</h4>
+              </div>
+              <div class="grand-total-row" style="grid-column: 1/-1; border-top: 1px solid var(--color-border); padding-top: 1rem; margin-top: 0.5rem;">
+                <span>Maturity Portfolio Value</span>
+                <h2 id="sip-res-total" style="font-size:2rem; font-family:var(--font-display); font-weight:900;">₹0</h2>
+              </div>
+            </div>
+            <div class="chart-visual-box" style="margin-top:2rem;">
+              <!-- Custom dynamic SVG SVG representation of principal vs interest -->
+              <div id="sip-chart-bar-visual" style="height:25px; display:flex; border-radius:8px; overflow:hidden; border:1px solid var(--color-border);">
+                <div id="sip-bar-invested" style="background:#3B82F6; width:50%;"></div>
+                <div id="sip-bar-gained" style="background:#10B981; width:50%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:0.7rem; opacity:0.6; margin-top:0.5rem;">
+                <span>🔵 Principal Invested</span>
+                <span>🟢 Returns Gained</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mortgage EMI Panel -->
+      <div id="calc-panel-emi" class="calc-content-panel">
+        <div class="calc-grid-layout">
+          <div class="calc-inputs-col checkout-panel">
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Loan Amount (₹)</label>
+              <input type="number" id="emi-principal" value="2500000">
+            </div>
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Interest Rate (% p.a.)</label>
+              <input type="number" id="emi-rate" value="8.5" step="0.1">
+            </div>
+            <div class="field-group" style="margin-bottom:1.5rem;">
+              <label>Loan Tenure (Years)</label>
+              <input type="number" id="emi-years" value="20">
+            </div>
+            <button id="btn-run-emi" class="btn primary w-full">Calculate EMI</button>
+          </div>
+
+          <div class="calc-results-col checkout-panel">
+            <h3>Monthly Outflow Details</h3>
+            <div class="results-value-grid">
+              <div>
+                <span>Monthly EMI Outflow</span>
+                <h4 id="emi-res-monthly" style="color:var(--color-accent); font-size:1.6rem;">₹0</h4>
+              </div>
+              <div>
+                <span>Total Interest Payable</span>
+                <h4 id="emi-res-interest">₹0</h4>
+              </div>
+              <div class="grand-total-row" style="grid-column: 1/-1; border-top: 1px solid var(--color-border); padding-top: 1rem; margin-top: 0.5rem;">
+                <span>Total Payments Amount</span>
+                <h2 id="emi-res-total" style="font-size:1.8rem; font-family:var(--font-display); font-weight:900;">₹0</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Loan Payoff Calculator Panel -->
+      <div id="calc-panel-payoff" class="calc-content-panel">
+        <div class="calc-grid-layout" style="grid-template-columns: 1fr 1.2fr;">
+          <!-- Inputs Column -->
+          <div class="calc-inputs-col checkout-panel">
+            <h3 style="margin-bottom:1.25rem;">Loan details</h3>
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Loan Amount (₹)</label>
+              <input type="number" id="payoff-amount" value="2000000" min="1000">
+            </div>
+            <div class="form-row" style="margin-bottom:1rem;">
+              <div class="field-group">
+                <label>Interest Rate (% p.a.)</label>
+                <input type="number" id="payoff-rate" value="9.5" step="0.1" min="0.1">
+              </div>
+              <div class="field-group">
+                <label>Loan Term (Years)</label>
+                <input type="number" id="payoff-years" value="15" min="1">
+              </div>
+            </div>
+            <div class="field-group" style="margin-bottom:1.5rem;">
+              <label>Payment Frequency</label>
+              <select id="payoff-frequency">
+                <option value="monthly" selected>Monthly</option>
+                <option value="biweekly">Bi-weekly</option>
+                <option value="weekly">Weekly</option>
+              </select>
+            </div>
+
+            <h3 style="margin-top:1.5rem; margin-bottom:1.25rem; border-top:1px solid var(--color-border); padding-top:1.25rem;">Extra Payments</h3>
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Extra Monthly Payment (₹)</label>
+              <input type="number" id="payoff-extra-monthly" value="5000" min="0">
+            </div>
+            <div class="form-row" style="margin-bottom:1rem;">
+              <div class="field-group">
+                <label>Extra Annual Payment (₹)</label>
+                <input type="number" id="payoff-extra-annual" value="20000" min="0">
+              </div>
+              <div class="field-group">
+                <label>One-Time Lump Sum (₹)</label>
+                <input type="number" id="payoff-extra-lump" value="50000" min="0">
+              </div>
+            </div>
+            <div class="field-group" style="margin-bottom:1.5rem;">
+              <label>Apply to Principal Only</label>
+              <select id="payoff-principal-only">
+                <option value="true" selected>Yes (Reduce Term)</option>
+                <option value="false">No (Reduce EMI)</option>
+              </select>
+            </div>
+            <button id="btn-run-payoff" class="btn primary w-full">Calculate Loan Payoff</button>
+          </div>
+
+          <!-- Outputs & Comparison Column -->
+          <div class="calc-results-col" style="display:flex; flex-direction:column; gap:1.5rem;">
+            <!-- Comparison Grid -->
+            <div class="checkout-panel" style="margin-bottom:0;">
+              <h3>Original vs. Accelerated Comparison</h3>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.5rem;">
+                <div style="background:var(--color-muted); padding:1.25rem; border-radius:12px;">
+                  <span style="font-size:0.68rem; font-weight:800; text-transform:uppercase; opacity:0.6;">Original Schedule</span>
+                  <div style="margin-top:0.75rem; display:flex; flex-direction:column; gap:0.5rem; font-size:0.85rem;">
+                    <div>Regular EMI: <strong id="payoff-comp-orig-emi" style="float:right;">₹0</strong></div>
+                    <div>Total Interest: <strong id="payoff-comp-orig-interest" style="float:right;">₹0</strong></div>
+                    <div style="border-top:1px solid var(--color-border); padding-top:0.4rem; margin-top:0.2rem;">Total Cost: <strong id="payoff-comp-orig-cost" style="float:right;">₹0</strong></div>
+                  </div>
+                </div>
+                <div style="background:var(--color-accent-glow); border:1px solid var(--color-accent); padding:1.25rem; border-radius:12px;">
+                  <span style="font-size:0.68rem; font-weight:800; text-transform:uppercase; color:var(--color-accent);">With Extra Payments</span>
+                  <div style="margin-top:0.75rem; display:flex; flex-direction:column; gap:0.5rem; font-size:0.85rem;">
+                    <div>New Payment: <strong id="payoff-comp-new-emi" style="float:right;">₹0</strong></div>
+                    <div>Total Interest: <strong id="payoff-comp-new-interest" style="float:right;">₹0</strong></div>
+                    <div style="border-top:1px solid var(--color-accent); padding-top:0.4rem; margin-top:0.2rem;">New Total Cost: <strong id="payoff-comp-new-cost" style="float:right;">₹0</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Savings Metrics Summary Card -->
+            <div class="checkout-panel" style="margin-bottom:0; background:linear-gradient(135deg, var(--color-card-bg) 0%, rgba(16,185,129,0.04) 100%);">
+              <h3>Wealth Savings & Benefits</h3>
+              <div class="results-value-grid" style="margin-top:1.25rem;">
+                <div>
+                  <span>Total Interest Saved</span>
+                  <h4 id="payoff-res-saved-interest" style="color:var(--color-accent); font-size:1.6rem; font-weight:900;">₹0</h4>
+                </div>
+                <div>
+                  <span>Time Saved</span>
+                  <h4 id="payoff-res-saved-time" style="font-size:1.4rem;">0 Years</h4>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Actions row -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+              <button id="btn-payoff-print" class="btn outline w-full">🖨️ Print Schedule</button>
+              <button id="btn-payoff-save" class="btn outline w-full">💾 Save Calculation</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Amortization Table -->
+        <div class="checkout-panel" style="margin-top:2.5rem; overflow-x:auto;">
+          <h3 style="margin-bottom:1.5rem;">Extra Payments Amortization Schedule</h3>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Payment Amount</th>
+                <th>Principal Paid</th>
+                <th>Interest Paid</th>
+                <th>Extra Paid</th>
+                <th>Remaining Balance</th>
+              </tr>
+            </thead>
+            <tbody id="payoff-amortization-tbody">
+              <!-- Dynamic rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. CREDIT CARDS VIEW ────────────────── -->
+    <section id="view-credit-cards" class="app-view">
+      <div class="view-header-title">
+        <h1>💳 Credit Cards Module</h1>
+        <p>Explore beginner credit card guides, compare features, verify eligibility, and calculate interest schedules.</p>
+      </div>
+      
+      <!-- Credit Card Disclaimer -->
+      <div class="legal-disclaimer-banner" style="background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.2); border-radius:12px; padding:1.25rem; margin-bottom:2rem; font-size:0.82rem; line-height:1.6;">
+        <strong>⚠️ Credit Card Notice:</strong> This website provides educational information only and does not recommend any specific credit card or financial product. Users should verify all fees, interest rates, eligibility requirements, and terms directly with the card issuer before applying.
+      </div>
+      
+      <div class="calc-tabs-bar cc-tabs-bar" style="margin-bottom:2rem;">
+        <button class="cc-tab-btn active" data-cc-sub="listings">Card Listings</button>
+        <button class="cc-tab-btn" data-cc-sub="comparison">Compare Cards</button>
+        <button class="cc-tab-btn" data-cc-sub="eligibility">Eligibility Checker</button>
+        <button class="cc-tab-btn" data-cc-sub="calculators">Card Calculators</button>
+        <button class="cc-tab-btn" data-cc-sub="guide">Beginner's Guide</button>
+      </div>
+
+      <!-- A. Listings Sub-panel -->
+      <div id="cc-sub-panel-listings" class="cc-content-panel active">
+        <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-bottom:2rem; align-items:center; background:var(--color-card-bg); padding:1rem; border-radius:10px; border:1px solid var(--color-border);">
+          <input type="text" id="cc-search-input" placeholder="Search cards by name or bank..." style="flex:1; min-width:200px; padding:0.75rem; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; color:var(--color-text);">
+          <select id="cc-filter-fee" style="padding:0.75rem; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; color:var(--color-text);">
+            <option value="">All Fees</option>
+            <option value="free">Lifetime Free</option>
+            <option value="paid">Annual Fee Under ₹2000</option>
+            <option value="premium">Premium (₹2000+)</option>
+          </select>
+          <select id="cc-filter-category" style="padding:0.75rem; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; color:var(--color-text);">
+            <option value="">All Categories</option>
+            <option value="Cashback">Cashback</option>
+            <option value="Travel">Travel & Lounge</option>
+            <option value="Rewards">Shopping & Rewards</option>
+            <option value="Fuel">Fuel benefits</option>
+          </select>
+        </div>
+        
+        <div id="cc-cards-grid" class="articles-grid-layout">
+          <!-- Dynamic card grids -->
+        </div>
+      </div>
+
+      <!-- B. Comparison Sub-panel -->
+      <div id="cc-sub-panel-comparison" class="cc-content-panel">
+        <div class="checkout-panel" style="margin-bottom:2rem;">
+          <h3>Compare Credit Cards</h3>
+          <p style="font-size:0.85rem; opacity:0.8; margin-bottom:1.5rem;">Select up to 5 credit cards to view side-by-side specs and determine the winner.</p>
+          <div id="cc-compare-select-wrap" style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+            <!-- Dynamic dropdowns to select cards -->
+          </div>
+          <button id="btn-run-cc-compare" class="btn primary">Compare Selected Cards</button>
+        </div>
+        
+        <div id="cc-comparison-table-wrap" class="checkout-panel" style="overflow-x:auto; display:none;">
+          <!-- Side by side comparison table will render here -->
+        </div>
+      </div>
+
+      <!-- C. Eligibility Checker -->
+      <div id="cc-sub-panel-eligibility" class="cc-content-panel">
+        <div class="calc-grid-layout" style="grid-template-columns:1fr 1.2fr;">
+          <div class="calc-inputs-col checkout-panel">
+            <h3>Enter Profile Details</h3>
+            <div class="field-group" style="margin-top:1.25rem; margin-bottom:1rem;">
+              <label>Monthly Take-home Salary (₹)</label>
+              <input type="number" id="cc-elig-income" value="25000">
+            </div>
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Credit Score</label>
+              <input type="number" id="cc-elig-score" value="720">
+            </div>
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Age (Years)</label>
+              <input type="number" id="cc-elig-age" value="28">
+            </div>
+            <div class="field-group" style="margin-bottom:1.5rem;">
+              <label>Employment Type</label>
+              <select id="cc-elig-employment">
+                <option value="salaried">Salaried Employee</option>
+                <option value="self-employed">Self Employed / Business Owner</option>
+              </select>
+            </div>
+            <button id="btn-check-cc-elig" class="btn primary w-full">Verify Eligibility</button>
+          </div>
+          
+          <div class="calc-results-col checkout-panel">
+            <h3>Your Qualified Credit Cards</h3>
+            <div id="cc-elig-results-list" style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem;">
+              <!-- Dynamic qualified card widgets -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- D. Card Calculators -->
+      <div id="cc-sub-panel-calculators" class="cc-content-panel">
+        <div class="calc-grid-layout" style="grid-template-columns: 280px 1fr; gap:2.5rem;">
+          <aside class="checkout-panel" style="padding:1rem;">
+            <h4 style="margin-bottom:1rem; font-size:0.9rem; color:var(--color-secondary);">SELECT CALCULATOR</h4>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;" id="cc-calcs-menu">
+              <button class="admin-menu-btn active cc-calc-menu-btn" data-cc-calc="interest">Interest Calculator</button>
+              <button class="admin-menu-btn cc-calc-menu-btn" data-cc-calc="minpay">Minimum Payment</button>
+              <button class="admin-menu-btn cc-calc-menu-btn" data-cc-calc="payoff">CC Payoff Calculator</button>
+              <button class="admin-menu-btn cc-calc-menu-btn" data-cc-calc="baltransfer">Balance Transfer</button>
+              <button class="admin-menu-btn cc-calc-menu-btn" data-cc-calc="utilization">Credit Utilization</button>
+            </div>
+          </aside>
+          
+          <div class="cc-calc-container">
+            <!-- 1. Interest Calculator -->
+            <div id="cc-calc-interest" class="cc-calc-sub-panel active checkout-panel">
+              <h3>Credit Card Interest Calculator</h3>
+              <p style="font-size:0.8rem; opacity:0.8; margin-bottom:1.5rem;">Estimate interest charges if carrying a balance over cycles.</p>
+              <div class="form-row" style="margin-bottom:1rem;">
+                <div class="field-group">
+                  <label>Statement Balance (₹)</label>
+                  <input type="number" id="cc-interest-bal" value="10000">
+                </div>
+                <div class="field-group">
+                  <label>Card APR (%)</label>
+                  <input type="number" id="cc-interest-apr" value="36">
+                </div>
+              </div>
+              <div class="field-group" style="margin-bottom:1.5rem;">
+                <label>Amount You Intend to Pay (₹)</label>
+                <input type="number" id="cc-interest-payment" value="2000">
+              </div>
+              <button id="btn-run-cc-interest" class="btn primary">Calculate Interest Charges</button>
+              <div style="margin-top:1.5rem; background:rgba(16,185,129,0.05); padding:1rem; border-radius:8px;">
+                <div style="font-size:0.8rem; opacity:0.7;">Estimated Next Statement Interest</div>
+                <h2 id="cc-interest-res" style="font-size:1.8rem; color:var(--color-accent); font-family:var(--font-display); font-weight:900;">₹0</h2>
+              </div>
+            </div>
+
+            <!-- 2. Minimum Payment -->
+            <div id="cc-calc-minpay" class="cc-calc-sub-panel checkout-panel">
+              <h3>Minimum Payment Payoff Trap</h3>
+              <p style="font-size:0.8rem; opacity:0.8; margin-bottom:1.5rem;">See how long it takes to clear debt if making only minimum monthly dues.</p>
+              <div class="form-row" style="margin-bottom:1rem;">
+                <div class="field-group">
+                  <label>Total Outstanding Balance (₹)</label>
+                  <input type="number" id="cc-minpay-bal" value="50000">
+                </div>
+                <div class="field-group">
+                  <label>Card APR (%)</label>
+                  <input type="number" id="cc-minpay-apr" value="36">
+                </div>
+              </div>
+              <div class="field-group" style="margin-bottom:1.5rem;">
+                <label>Minimum Payment Ratio (%)</label>
+                <input type="number" id="cc-minpay-pct" value="5" min="2" max="10">
+              </div>
+              <button id="btn-run-cc-minpay" class="btn primary">Compute Payoff Timeline</button>
+              <div class="results-value-grid" style="margin-top:1.5rem; background:rgba(16,185,129,0.05); padding:1rem; border-radius:8px;">
+                <div>
+                  <span>Months to Pay Off</span>
+                  <h4 id="cc-minpay-res-months" style="color:var(--color-accent); font-size:1.5rem;">0 Months</h4>
+                </div>
+                <div>
+                  <span>Total Interest Paid</span>
+                  <h4 id="cc-minpay-res-interest" style="color:var(--color-accent); font-size:1.5rem;">₹0</h4>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Payoff Calculator -->
+            <div id="cc-calc-payoff" class="cc-calc-sub-panel checkout-panel">
+              <h3>Credit Card Debt Payoff Calculator</h3>
+              <p style="font-size:0.8rem; opacity:0.8; margin-bottom:1.5rem;">Calculate required monthly contributions to clear debt by a specific target date.</p>
+              <div class="form-row" style="margin-bottom:1rem;">
+                <div class="field-group">
+                  <label>Card Balance (₹)</label>
+                  <input type="number" id="cc-payoff-bal" value="30000">
+                </div>
+                <div class="field-group">
+                  <label>Card APR (%)</label>
+                  <input type="number" id="cc-payoff-apr" value="36">
+                </div>
+              </div>
+              <div class="field-group" style="margin-bottom:1.5rem;">
+                <label>Target Payoff Period (Months)</label>
+                <input type="number" id="cc-payoff-months" value="12">
+              </div>
+              <button id="btn-run-cc-payoff" class="btn primary">Calculate Monthly Payment</button>
+              <div style="margin-top:1.5rem; background:rgba(16,185,129,0.05); padding:1rem; border-radius:8px;">
+                <div style="font-size:0.8rem; opacity:0.7;">Required Monthly Contribution</div>
+                <h2 id="cc-payoff-res-monthly" style="font-size:1.8rem; color:var(--color-accent); font-family:var(--font-display); font-weight:900;">₹0</h2>
+              </div>
+            </div>
+
+            <!-- 4. Balance Transfer -->
+            <div id="cc-calc-baltransfer" class="cc-calc-sub-panel checkout-panel">
+              <h3>Balance Transfer Savings Calculator</h3>
+              <p style="font-size:0.8rem; opacity:0.8; margin-bottom:1.5rem;">Compare savings by moving outstanding debt to a lower-interest card.</p>
+              <div class="form-row" style="margin-bottom:1rem;">
+                <div class="field-group">
+                  <label>Current Card Debt (₹)</label>
+                  <input type="number" id="cc-bt-bal" value="100000">
+                </div>
+                <div class="field-group">
+                  <label>Current Card APR (%)</label>
+                  <input type="number" id="cc-bt-apr" value="38">
+                </div>
+              </div>
+              <div class="form-row" style="margin-bottom:1.5rem;">
+                <div class="field-group">
+                  <label>New Card Promo APR (%)</label>
+                  <input type="number" id="cc-bt-new-apr" value="12">
+                </div>
+                <div class="field-group">
+                  <label>Transfer Fee Ratio (%)</label>
+                  <input type="number" id="cc-bt-fee-pct" value="3">
+                </div>
+              </div>
+              <button id="btn-run-cc-bt" class="btn primary">Estimate Balance Transfer Savings</button>
+              <div class="results-value-grid" style="margin-top:1.5rem; background:rgba(16,185,129,0.05); padding:1rem; border-radius:8px;">
+                <div>
+                  <span>Upfront Transfer Fee</span>
+                  <h4 id="cc-bt-res-fee" style="font-size:1.4rem;">₹0</h4>
+                </div>
+                <div>
+                  <span>Net Interest Saved (1 Yr)</span>
+                  <h4 id="cc-bt-res-saved" style="color:var(--color-accent); font-size:1.5rem;">₹0</h4>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Credit Utilization -->
+            <div id="cc-calc-utilization" class="cc-calc-sub-panel checkout-panel">
+              <h3>Credit Utilization & Score Impact</h3>
+              <p style="font-size:0.8rem; opacity:0.8; margin-bottom:1.5rem;">Keep utilization under 30% to protect credit scores.</p>
+              <div class="form-row" style="margin-top:1rem; margin-bottom:1.5rem;">
+                <div class="field-group">
+                  <label>Unpaid Statement Balances (₹)</label>
+                  <input type="number" id="cc-util-bal" value="15000">
+                </div>
+                <div class="field-group">
+                  <label>Total Available Credit Limit (₹)</label>
+                  <input type="number" id="cc-util-limit" value="50000">
+                </div>
+              </div>
+              <button id="btn-run-cc-util" class="btn primary">Check Utilization</button>
+              <div class="results-value-grid" style="margin-top:1.5rem; background:rgba(16,185,129,0.05); padding:1rem; border-radius:8px;">
+                <div>
+                  <span>Current Utilization Ratio</span>
+                  <h4 id="cc-util-res-ratio" style="color:var(--color-accent); font-size:1.5rem;">0%</h4>
+                </div>
+                <div>
+                  <span>Status Rating</span>
+                  <h4 id="cc-util-res-rating" style="font-size:1.4rem;">Excellent</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- E. Beginner's Guide -->
+      <div id="cc-sub-panel-guide" class="cc-content-panel">
+        <div class="checkout-panel legal-doc-content" style="line-height:1.75; font-size:0.95rem;">
+          <h2 style="color:var(--color-accent); margin-bottom:1.5rem;">Understanding Credit Cards 101</h2>
+          <h3 style="margin-top:1.5rem; margin-bottom:0.5rem;">1. The Billing Cycle</h3>
+          <p>Your statement is generated monthly on a fixed date. Transactions done within this cycle must be paid on or before the Due Date (usually 20 days post cycle statement date).</p>
+          <h3 style="margin-top:1.5rem; margin-bottom:0.5rem;">2. APR & Interest Charges</h3>
+          <p>Annual Percentage Rate (APR) represents the yearly interest. If you carry a balance (even ₹1) past the due date, interest is calculated daily on all outstanding balances from the transaction date.</p>
+          <h3 style="margin-top:1.5rem; margin-bottom:0.5rem;">3. Credit Utilization</h3>
+          <p>Using more than 30% of your credit limit raises flags to bureaus, hurting your score even if paid in full monthly.</p>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ── 6. INVESTING VIEW ────────────────────── -->
+    <section id="view-investing" class="app-view">
+      <div class="view-header-title">
+        <h1>💹 Investing Fundamentals</h1>
+        <p>Master long-term asset allocation, diversification, ETFs, and mutual funds.</p>
+      </div>
+      <div class="legal-disclaimer-banner" style="background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.18); border-radius:12px; padding:1.25rem; margin-bottom:2rem; font-size:0.8rem; line-height:1.6;">
+        <strong>⚠️ Legal Disclaimer:</strong> This website is for educational purposes only. Investing involves risk, including possible loss of principal. Please verify parameters before allocating funds.
+      </div>
+
+      <div class="checkout-panel" style="margin-bottom:2.5rem;">
+        <h3>Asset Allocation & Diversification</h3>
+        <p style="line-height:1.7;">Diversification is the ultimate risk management shield. Spreading capital across Stocks (Equities), Bonds (Fixed Income), Gold (Commodities), and Cash ensures portfolio stability during market stress.</p>
+      </div>
+
+      <div class="checkout-panel">
+        <h3>Primary Investment Vehicles</h3>
+        <div id="investing-types-list" style="display:flex; flex-direction:column; gap:1.25rem; margin-top:1.5rem;">
+          <div>
+            <strong style="color:var(--color-accent); font-size:1.05rem;">ETFs (Exchange Traded Funds)</strong>
+            <p style="font-size:0.88rem; opacity:0.8; margin-top:0.3rem;">Passive funds tracking index baskets (like S&P 500 or Nifty 50), trading directly on exchanges like normal stocks.</p>
+          </div>
+          <div style="border-top:1px solid var(--color-border); padding-top:1rem;">
+            <strong style="color:var(--color-accent); font-size:1.05rem;">Mutual Funds</strong>
+            <p style="font-size:0.88rem; opacity:0.8; margin-top:0.3rem;">Pooled investment portfolios managed by professional fund managers, trading once daily at Net Asset Value (NAV).</p>
+          </div>
+          <div style="border-top:1px solid var(--color-border); padding-top:1rem;">
+            <strong style="color:var(--color-accent); font-size:1.05rem;">REITs (Real Estate Investment Trusts)</strong>
+            <p style="font-size:0.88rem; opacity:0.8; margin-top:0.3rem;">Trust companies owning rent-generating real estate, distributing 90% of taxable income to shareholders as dividends.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ── 7. LOGIN VIEW ───────────────────────── -->
+    <section id="view-login" class="app-view">
+      <div class="auth-card-wrap" style="display:flex; justify-content:center; padding:3rem 0;">
+        <div class="auth-card checkout-panel" style="max-width:400px; width:100%;">
+          <h2>Welcome Back</h2>
+          <p>Sign in to save calculations and bookmark guides.</p>
+          <form id="auth-login-form">
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Email Address</label>
+              <input type="email" id="login-email" required>
+            </div>
+            <div class="field-group" style="margin-bottom:1.5rem;">
+              <label>Password</label>
+              <input type="password" id="login-password" required>
+            </div>
+            <button type="submit" class="btn primary w-full" style="margin-bottom:1rem;">Sign In</button>
+            <p style="font-size:0.8rem; text-align:center; opacity:0.7;">
+              Don't have an account? <a href="#register">Register here</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 8. REGISTER VIEW ────────────────────── -->
+    <section id="view-register" class="app-view">
+      <div class="auth-card-wrap" style="display:flex; justify-content:center; padding:3rem 0;">
+        <div class="auth-card checkout-panel" style="max-width:400px; width:100%;">
+          <h2>Create Account</h2>
+          <p>Register to unlock portfolio visualizers and calculators history.</p>
+          <form id="auth-register-form">
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Full Name</label>
+              <input type="text" id="register-name" required>
+            </div>
+            <div class="field-group" style="margin-bottom:1rem;">
+              <label>Email Address</label>
+              <input type="email" id="register-email" required>
+            </div>
+            <div class="field-group" style="margin-bottom:1.5rem;">
+              <label>Password</label>
+              <input type="password" id="register-password" required>
+            </div>
+            <button type="submit" class="btn primary w-full" style="margin-bottom:1rem;">Register Account</button>
+            <p style="font-size:0.8rem; text-align:center; opacity:0.7;">
+              Already have an account? <a href="#login">Sign in here</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 9. USER DASHBOARD VIEW ──────────────── -->
+    <section id="view-dashboard" class="app-view">
+      <div class="dashboard-layout" style="display:grid; grid-template-columns: 260px 1fr; gap:3rem;">
+        <aside class="dashboard-sidebar checkout-panel">
+          <div class="user-profile-summary" style="text-align:center; padding-bottom:1.5rem; border-bottom:1px solid var(--color-border); margin-bottom:1.5rem;">
+            <img id="dash-avatar" src="" alt="Avatar" style="width:70px; height:70px; border-radius:50%; object-fit:cover; margin-bottom:0.75rem;">
+            <h3 id="dash-name">User Name</h3>
+            <span id="dash-role" class="user-role-badge user">Subscriber</span>
+          </div>
+          <nav class="dash-menu" style="display:flex; flex-direction:column; gap:0.5rem;">
+            <button class="dash-menu-btn active" data-tab="bookmarks">🔖 Bookmarked Guides</button>
+            <button class="dash-menu-btn" data-tab="profile">👤 Edit Profiles</button>
+            <button class="dash-menu-btn" data-tab="security">🔒 Password settings</button>
+          </nav>
+        </aside>
+
+        <div class="dashboard-content-body">
+          <div id="dash-tab-bookmarks" class="dash-tab-panel active">
+            <h2>Bookmarked Articles</h2>
+            <div class="articles-grid-layout" id="dash-bookmarks-grid">
+              <!-- Bookmarks list -->
+            </div>
+          </div>
+          <div id="dash-tab-profile" class="dash-tab-panel">
+            <h2>Edit Profile Details</h2>
+            <form id="dash-profile-form" class="checkout-panel">
+              <div class="form-row">
+                <div class="field-group">
+                  <label>Full Name</label>
+                  <input type="text" id="dash-profile-name" required>
+                </div>
+                <div class="field-group">
+                  <label>Avatar image URL</label>
+                  <input type="url" id="dash-profile-avatar">
+                </div>
+              </div>
+              <div class="field-group" style="margin-top:1rem; margin-bottom:1.5rem;">
+                <label>Bio / Description</label>
+                <textarea id="dash-profile-bio" rows="4" style="resize:none; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.75rem; color:var(--color-text); font-family:inherit;"></textarea>
+              </div>
+              <button type="submit" class="btn primary">Save Changes</button>
+            </form>
+          </div>
+          <div id="dash-tab-security" class="dash-tab-panel">
+            <h2>Change Password Settings</h2>
+            <form id="dash-security-form" class="checkout-panel">
+              <div class="field-group" style="margin-bottom:1rem;">
+                <label>Current Password</label>
+                <input type="password" id="dash-old-password" required>
+              </div>
+              <div class="field-group" style="margin-bottom:1.5rem;">
+                <label>New Password</label>
+                <input type="password" id="dash-new-password" required>
+              </div>
+              <button type="submit" class="btn primary">Update Passwords</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 10. ADMIN DASHBOARD VIEW ───────────── -->
+    <section id="view-admin" class="app-view">
+      <div class="admin-layout" style="display:grid; grid-template-columns:260px 1fr; gap:2.5rem;">
+        <aside class="admin-sidebar">
+          <h3 style="font-size:1rem; letter-spacing:1px; margin-bottom:1rem; opacity:0.8;">⚙️ FINANCE CMS</h3>
+          <nav class="admin-menu">
+            <button class="admin-menu-btn active" data-tab="dashboard">📊 Dashboard</button>
+            <button class="admin-menu-btn" data-tab="news">📰 News CMS</button>
+            <button class="admin-menu-btn" data-tab="posts">📝 Finance Articles</button>
+            <button class="admin-menu-btn" data-tab="cards">💳 Credit Cards</button>
+          </nav>
+        </aside>
+
+        <div class="admin-content-body">
+          <!-- 1. Dashboard Subpanel -->
+          <div id="admin-panel-dashboard" class="admin-subpanel active">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+              <div>
+                <h2 style="margin:0; font-family:var(--font-display); font-weight:700;">📊 Platform Dashboard Overview</h2>
+                <p style="margin:0.25rem 0 0; opacity:0.75; font-size:0.85rem;">Real-time metrics, analytics, publication logs, and administrative controls.</p>
+              </div>
+              <div style="display:flex; gap:0.5rem;">
+                <select id="admin-dashboard-period" style="padding:0.4rem 0.8rem; border-radius:8px; border:1px solid var(--color-border); background:var(--color-bg); color:var(--color-text); font-size:0.85rem;">
+                  <option value="7d">Last 7 Days</option>
+                  <option value="30d" selected>Last 30 Days</option>
+                  <option value="12m">Last 12 Months</option>
+                </select>
+                <button id="admin-dashboard-refresh" class="btn outline" style="padding:0.4rem 0.8rem; font-size:0.85rem;" title="Refresh Dashboard">🔄 Refresh</button>
+              </div>
+            </div>
+
+            <!-- ⚡ Quick Actions row -->
+            <div class="checkout-panel" style="padding:1.25rem; margin-bottom:1.5rem;">
+              <h3 style="margin-top:0; font-size:0.95rem; color:var(--color-accent); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:1rem;">⚡ Quick Actions Shortcuts</h3>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:0.75rem;">
+                <button onclick="window.location.hash='#admin?tab=posts&action=new'" class="btn outline" style="font-size:0.78rem; padding:0.6rem 0.4rem; justify-content:center; text-align:center;"><span style="display:block; font-size:1.25rem; margin-bottom:0.25rem;">📝</span> New Article</button>
+                <button id="quick-act-create-news" class="btn outline" style="font-size:0.78rem; padding:0.6rem 0.4rem; justify-content:center; text-align:center;"><span style="display:block; font-size:1.25rem; margin-bottom:0.25rem;">📰</span> Create News</button>
+                <button id="quick-act-media" class="btn outline" style="font-size:0.78rem; padding:0.6rem 0.4rem; justify-content:center; text-align:center;"><span style="display:block; font-size:1.25rem; margin-bottom:0.25rem;">🖼️</span> Upload Media</button>
+                <button id="quick-act-calculator" class="btn outline" style="font-size:0.78rem; padding:0.6rem 0.4rem; justify-content:center; text-align:center;"><span style="display:block; font-size:1.25rem; margin-bottom:0.25rem;">🧮</span> Add Calculator</button>
+                <button id="quick-act-glossary" class="btn outline" style="font-size:0.78rem; padding:0.6rem 0.4rem; justify-content:center; text-align:center;"><span style="display:block; font-size:1.25rem; margin-bottom:0.25rem;">📔</span> Add Glossary</button>
+                <button id="quick-act-comments" class="btn outline" style="font-size:0.78rem; padding:0.6rem 0.4rem; justify-content:center; text-align:center;"><span style="display:block; font-size:1.25rem; margin-bottom:0.25rem;">💬</span> View Comments</button>
+                <button id="quick-act-categories" class="btn outline" style="font-size:0.78rem; padding:0.6rem 0.4rem; justify-content:center; text-align:center;"><span style="display:block; font-size:1.25rem; margin-bottom:0.25rem;">📂</span> Categories</button>
+                <button onclick="window.location.hash='#admin?tab=settings'" class="btn outline" style="font-size:0.78rem; padding:0.6rem 0.4rem; justify-content:center; text-align:center;"><span style="display:block; font-size:1.25rem; margin-bottom:0.25rem;">⚙️</span> Settings</button>
+              </div>
+            </div>
+
+            <!-- GRID ROW 1: Traffic Overview & Active Users -->
+            <div style="display:grid; grid-template-columns:3fr 2fr; gap:1.5rem; margin-bottom:1.5rem;">
+              <!-- 📈 Traffic Overview Card -->
+              <div class="checkout-panel" style="padding:1.5rem;">
+                <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
+                  <span>📈 Traffic Overview</span>
+                  <span id="traffic-growth-badge" style="background:rgba(34,197,94,0.1); color:rgb(34,197,94); font-size:0.75rem; padding:0.15rem 0.4rem; border-radius:4px; font-weight:700;">+12.4% Growth</span>
+                </h3>
+                <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem; margin-bottom:1.5rem;">
+                  <div>
+                    <span style="font-size:0.75rem; opacity:0.8; display:block;">Total Visitors</span>
+                    <strong id="traffic-total-visitors" style="font-size:1.4rem; font-family:var(--font-display);">24,580</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.75rem; opacity:0.8; display:block;">Total Sessions</span>
+                    <strong id="traffic-total-sessions" style="font-size:1.4rem; font-family:var(--font-display);">31,240</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.75rem; opacity:0.8; display:block;">Unique Visitors</span>
+                    <strong id="traffic-unique-visitors" style="font-size:1.4rem; font-family:var(--font-display);">18,920</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.75rem; opacity:0.8; display:block;">New vs Returning</span>
+                    <strong id="traffic-new-vs-ret" style="font-size:1rem; font-family:var(--font-display); line-height:2;">74% / 26%</strong>
+                  </div>
+                </div>
+                <!-- Main Traffic Chart -->
+                <div style="height:250px; position:relative;">
+                  <canvas id="chart-traffic-visitors"></canvas>
+                </div>
+              </div>
+
+              <!-- 👥 Active Visitors Card -->
+              <div class="checkout-panel" style="padding:1.5rem; display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                  <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
+                    <span>👥 Active Visitors</span>
+                    <span style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.78rem; font-weight:700; color:var(--color-error);">
+                      <span class="live-pulse" style="width:8px; height:8px; background:var(--color-error); border-radius:50%; display:inline-block; animation:pulse 1.5s infinite;"></span>
+                      <span id="active-online-now">12</span> ONLINE NOW
+                    </span>
+                  </h3>
+                  
+                  <div style="margin-bottom:1rem;">
+                    <span style="font-size:0.75rem; opacity:0.8; display:block; margin-bottom:0.25rem;">Active Devices Breakdown</span>
+                    <div style="display:flex; align-items:center; gap:1rem; font-size:0.8rem;">
+                      <div style="flex:1;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem; font-size:0.72rem; opacity:0.8;">
+                          <span>💻 Desktop: <strong id="active-device-desktop-pct">60%</strong></span>
+                          <span>📱 Mobile: <strong id="active-device-mobile-pct">35%</strong></span>
+                          <span>📟 Tablet: <strong id="active-device-tablet-pct">5%</strong></span>
+                        </div>
+                        <div style="height:8px; display:flex; border-radius:4px; overflow:hidden; background:var(--color-border);">
+                          <div id="active-device-desktop-bar" style="width:60%; background:var(--color-accent);"></div>
+                          <div id="active-device-mobile-bar" style="width:35%; background:#22c55e;"></div>
+                          <div id="active-device-tablet-bar" style="width:5%; background:#eab308;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <span style="font-size:0.75rem; opacity:0.8; display:block; margin-bottom:0.5rem;">Current Active Pages</span>
+                  <div style="max-height:120px; overflow-y:auto; border:1px solid var(--color-border); border-radius:8px; padding:0.5rem; font-size:0.78rem;">
+                    <table style="width:100%; border-collapse:collapse;" id="active-pages-table">
+                      <!-- Active pages rows -->
+                    </table>
+                  </div>
+                </div>
+
+                <div style="margin-top:1rem;">
+                  <span style="font-size:0.75rem; opacity:0.8; display:block; margin-bottom:0.5rem;">Live Activity Feed</span>
+                  <div id="live-activity-feed-list" style="max-height:110px; overflow-y:auto; font-size:0.75rem; opacity:0.85; display:flex; flex-direction:column; gap:0.4rem;">
+                    <!-- Live logs -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- GRID ROW 2: Page Views & Content Performance -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+              <!-- 👁️ Page Views Card -->
+              <div class="checkout-panel" style="padding:1.5rem;">
+                <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem;">👁️ Page Views & Top Pages</h3>
+                <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-bottom:1rem; text-align:center;">
+                  <div>
+                    <span style="font-size:0.75rem; opacity:0.8; display:block;">Total Page Views</span>
+                    <strong id="views-total-views" style="font-size:1.3rem; font-family:var(--font-display);">0</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.75rem; opacity:0.8; display:block;">Unique Page Views</span>
+                    <strong id="views-unique-views" style="font-size:1.3rem; font-family:var(--font-display);">0</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.75rem; opacity:0.8; display:block;">Avg Views/Session</span>
+                    <strong id="views-avg-session" style="font-size:1.3rem; font-family:var(--font-display);">1.65</strong>
+                  </div>
+                </div>
+
+                <div style="height:160px; margin-bottom:1rem; position:relative;">
+                  <canvas id="chart-page-views-trend"></canvas>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.8rem; border-top:1px solid var(--color-border); padding-top:1rem;">
+                  <div>
+                    <strong style="color:var(--color-accent); display:block; margin-bottom:0.5rem;">Top Viewed Categories</strong>
+                    <div id="views-top-categories" style="display:flex; flex-direction:column; gap:0.4rem;">
+                      <!-- Categories -->
+                    </div>
+                  </div>
+                  <div>
+                    <strong style="color:var(--color-accent); display:block; margin-bottom:0.5rem;">Top Viewed Pages</strong>
+                    <div id="views-top-pages" style="display:flex; flex-direction:column; gap:0.4rem;">
+                      <!-- Pages -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 📄 Content Performance Card -->
+              <div class="checkout-panel" style="padding:1.5rem;">
+                <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem;">📄 Content Performance</h3>
+                <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:0.5rem; margin-bottom:1.5rem; text-align:center;">
+                  <div>
+                    <span style="font-size:0.65rem; opacity:0.8; display:block;">Published</span>
+                    <strong id="content-stat-published" style="font-size:1.25rem;">0</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.65rem; opacity:0.8; display:block;">Drafts</span>
+                    <strong id="content-stat-drafts" style="font-size:1.25rem;">0</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.65rem; opacity:0.8; display:block;">Scheduled</span>
+                    <strong id="content-stat-scheduled" style="font-size:1.25rem;">0</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.65rem; opacity:0.8; display:block;">Avg Read Time</span>
+                    <strong id="content-stat-read-time" style="font-size:1.25rem;">4.2m</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.65rem; opacity:0.8; display:block;">Engagement</span>
+                    <strong id="content-stat-engagement" style="font-size:1.25rem;">82%</strong>
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; font-size:0.8rem; border-top:1px solid var(--color-border); padding-top:1rem;">
+                  <div>
+                    <strong style="color:var(--color-accent); display:block; margin-bottom:0.5rem;">🔥 Most Read Articles</strong>
+                    <div id="content-most-read" style="display:flex; flex-direction:column; gap:0.4rem;">
+                      <!-- Most read -->
+                    </div>
+                  </div>
+                  <div>
+                    <strong style="color:var(--color-accent); display:block; margin-bottom:0.5rem;">⚠️ Least Performing</strong>
+                    <div id="content-least-performing" style="display:flex; flex-direction:column; gap:0.4rem;">
+                      <!-- Least read -->
+                    </div>
+                  </div>
+                </div>
+
+                <div style="margin-top:1rem; border-top:1px solid var(--color-border); padding-top:1rem; font-size:0.8rem;">
+                  <strong style="color:var(--color-accent); display:block; margin-bottom:0.5rem;">Recently Updated Content</strong>
+                  <div id="content-recently-updated" style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <!-- Recently updated -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- GRID ROW 3: Subscriber Growth & Traffic Analytics Charts -->
+            <div style="display:grid; grid-template-columns:3fr 2fr; gap:1.5rem; margin-bottom:1.5rem;">
+              <!-- 📧 Subscriber Growth Card -->
+              <div class="checkout-panel" style="padding:1.5rem;">
+                <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
+                  <span>📧 Subscriber Growth</span>
+                  <button id="btn-export-subscribers-csv" class="btn outline" style="padding:0.3rem 0.75rem; font-size:0.75rem;">Export CSV List</button>
+                </h3>
+                <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem; margin-bottom:1.25rem;">
+                  <div>
+                    <span style="font-size:0.72rem; opacity:0.8; display:block;">Total Subscribers</span>
+                    <strong id="sub-total-count" style="font-size:1.3rem;">0</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.72rem; opacity:0.8; display:block;">New Today</span>
+                    <strong id="sub-today-count" style="font-size:1.3rem;">0</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.72rem; opacity:0.8; display:block;">Weekly Growth</span>
+                    <strong id="sub-weekly-growth" style="font-size:1.3rem; color:#22c55e;">+4.5%</strong>
+                  </div>
+                  <div>
+                    <span style="font-size:0.72rem; opacity:0.8; display:block;">Monthly Growth</span>
+                    <strong id="sub-monthly-growth" style="font-size:1.3rem; color:#22c55e;">+18.2%</strong>
+                  </div>
+                </div>
+
+                <div style="height:150px; margin-bottom:1rem; position:relative;">
+                  <canvas id="chart-subscriber-trend"></canvas>
+                </div>
+
+                <div style="border-top:1px solid var(--color-border); padding-top:1rem; font-size:0.8rem;">
+                  <strong style="color:var(--color-accent); display:block; margin-bottom:0.5rem;">Recent Subscribers</strong>
+                  <div style="max-height:100px; overflow-y:auto;">
+                    <table style="width:100%; border-collapse:collapse; text-align:left;" id="subscribers-recent-table">
+                      <thead>
+                        <tr style="border-bottom:1px solid var(--color-border); opacity:0.8; font-size:0.72rem;">
+                          <th>Email Address</th>
+                          <th>Registered Date</th>
+                          <th>Source</th>
+                        </tr>
+                      </thead>
+                      <tbody id="subscribers-recent-tbody">
+                        <!-- Filled dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 📊 Traffic Analytics (Device, Sources, Country Breakdown) -->
+              <div class="checkout-panel" style="padding:1.5rem; display:flex; flex-direction:column; justify-content:space-between;">
+                <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem;">📊 Traffic Analytics</h3>
+                
+                <div style="height:180px; position:relative; margin-bottom:1.5rem;">
+                  <canvas id="chart-traffic-sources"></canvas>
+                </div>
+                
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.8rem; border-top:1px solid var(--color-border); padding-top:1rem;">
+                  <div>
+                    <strong style="color:var(--color-accent); display:block; margin-bottom:0.4rem;">Country Distribution</strong>
+                    <div id="analytics-countries-list" style="display:flex; flex-direction:column; gap:0.35rem;">
+                      <!-- Countries list -->
+                    </div>
+                  </div>
+                  <div>
+                    <strong style="color:var(--color-accent); display:block; margin-bottom:0.4rem;">Browser Usage</strong>
+                    <div id="analytics-browsers-list" style="display:flex; flex-direction:column; gap:0.35rem;">
+                      <!-- Browsers list -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 🔥 Top Performing Pages Table -->
+            <div class="checkout-panel" style="padding:1.5rem; margin-bottom:1.5rem;">
+              <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem;">🔥 Top Performing Pages (Top 10)</h3>
+              <div class="admin-table-container">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Page Route / URL</th>
+                      <th>Total Views</th>
+                      <th>Unique Visitors</th>
+                      <th>Avg Time on Page</th>
+                      <th>Bounce Rate</th>
+                      <th>Entry Source</th>
+                      <th>Last Viewed</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-dashboard-top-pages-tbody">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- 📰 Latest Publications Card -->
+            <div class="checkout-panel" style="padding:1.5rem; margin-bottom:1.5rem;">
+              <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem;">📰 Latest Publications (Articles & News)</h3>
+              <div class="admin-table-container">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Headline</th>
+                      <th>Publish Date</th>
+                      <th>Author</th>
+                      <th>Category</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-dashboard-latest-pub-tbody">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Administrative Quick Controls (Maintenance & DB Wipe) -->
+            <div class="checkout-panel" style="padding:1.5rem;">
+              <h3 style="margin-top:0; font-size:1.1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem; margin-bottom:1rem;">⚙️ Platform System Controls</h3>
+              <div style="display:flex; gap:1.5rem; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+                <div style="display:flex; gap:1.5rem; align-items:center;">
+                  <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                    <input type="checkbox" id="admin-toggle-maintenance">
+                    <strong>Enable Maintenance Mode</strong>
+                  </label>
+                </div>
+                <div style="display:flex; gap:0.5rem;">
+                  <button id="admin-quick-backup-btn" class="btn primary">📥 Backup Database</button>
+                  <button id="admin-quick-clear-btn" class="btn outline" style="color:var(--color-error); border-color:rgba(239,68,68,0.2);">⚠️ Purge Database</button>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+          <!-- 2B. News Manager Subpanel (Sub-SPA Layout) -->
+          <div id="admin-panel-news" class="admin-subpanel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h2>📰 Financial News CMS Panel</h2>
+            </div>
+            
+            <div class="calc-tabs-bar" style="margin-bottom:1.5rem; display:flex; gap:0.5rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem;">
+              <button class="cc-tab-btn active news-tab-btn" data-news-tab="dashboard">Dashboard</button>
+              <button class="cc-tab-btn news-tab-btn" data-news-tab="all">All News</button>
+              <button class="cc-tab-btn news-tab-btn" data-news-tab="add">Add News Article</button>
+              <button class="cc-tab-btn news-tab-btn" data-news-tab="categories">Categories & Tags</button>
+              <button class="cc-tab-btn news-tab-btn" data-news-tab="media">Media Library</button>
+              <button class="cc-tab-btn news-tab-btn" data-news-tab="seo">SEO & Schema</button>
+              <button class="cc-tab-btn news-tab-btn" data-news-tab="settings">Settings</button>
+            </div>
+
+            <!-- News sub-tab panels -->
+            <!-- A. Dashboard Sub-Tab -->
+            <div id="news-tab-panel-dashboard" class="news-tab-content active-panel">
+              <div class="admin-stats-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1.25rem; margin-bottom:2rem; margin-top:1rem;">
+                <div class="stat-card checkout-panel" style="padding:1.25rem;">
+                  <h4 style="margin:0; font-size:0.8rem; opacity:0.8;">Total News Views</h4>
+                  <div class="val" id="admin-news-stat-views" style="font-size:1.8rem; font-weight:800; color:var(--color-accent); margin-top:0.5rem;">0</div>
+                </div>
+                <div class="stat-card checkout-panel" style="padding:1.25rem;">
+                  <h4 style="margin:0; font-size:0.8rem; opacity:0.8;">Breaking News</h4>
+                  <div class="val" id="admin-news-stat-breaking" style="font-size:1.8rem; font-weight:800; color:var(--color-accent); margin-top:0.5rem;">0</div>
+                </div>
+                <div class="stat-card checkout-panel" style="padding:1.25rem;">
+                  <h4 style="margin:0; font-size:0.8rem; opacity:0.8;">Trending Articles</h4>
+                  <div class="val" id="admin-news-stat-trending" style="font-size:1.8rem; font-weight:800; color:var(--color-accent); margin-top:0.5rem;">0</div>
+                </div>
+                <div class="stat-card checkout-panel" style="padding:1.25rem;">
+                  <h4 style="margin:0; font-size:0.8rem; opacity:0.8;">Drafts</h4>
+                  <div class="val" id="admin-news-stat-drafts" style="font-size:1.8rem; font-weight:800; color:var(--color-accent); margin-top:0.5rem;">0</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- B. All News Sub-Tab -->
+            <div id="news-tab-panel-all" class="news-tab-content" style="display:none;">
+              <div class="checkout-panel" style="padding:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem; margin-top:1rem;">
+                <div style="display:flex; gap:0.5rem; flex:1; max-width:320px;">
+                  <input type="text" id="admin-news-search" placeholder="Search news by headline..." style="flex:1; padding:0.4rem 0.8rem; border-radius:8px; border:1px solid var(--color-border); background:var(--color-bg); color:var(--color-text); font-size:0.85rem;">
+                  <button id="admin-news-search-btn" class="btn primary" style="padding:0.4rem 1rem; font-size:0.8rem;">Search</button>
+                </div>
+                <div style="display:flex; gap:0.5rem;">
+                  <button id="admin-news-bulk-publish-btn" class="btn outline" style="padding:0.4rem 1rem; font-size:0.8rem;">Bulk Publish</button>
+                  <button id="admin-news-bulk-delete-btn" class="btn outline" style="padding:0.4rem 1rem; font-size:0.8rem; color:var(--color-error); border-color:rgba(239,68,68,0.2);">Bulk Delete</button>
+                </div>
+              </div>
+              <div class="admin-table-container">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th style="width:40px;"><input type="checkbox" id="admin-news-select-all"></th>
+                      <th>Headline</th>
+                      <th>Category</th>
+                      <th>Author</th>
+                      <th>Date</th>
+                      <th>Views</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-news-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- C. Add/Edit News Sub-Tab -->
+            <div id="news-tab-panel-add" class="news-tab-content" style="display:none;">
+              <div class="checkout-panel" style="margin-top:1rem;">
+                <h3 id="admin-news-editor-title">Write New Financial News</h3>
+                <form id="admin-news-form" style="margin-top:1.5rem;">
+                  <input type="hidden" id="admin-news-edit-id">
+                  
+                  <div class="field-group" style="margin-bottom:1rem;">
+                    <label>News Title / Headline</label>
+                    <input type="text" id="admin-news-title" required placeholder="e.g. Stock Market Indexes Hit All-Time Highs">
+                  </div>
+                  
+                  <div class="form-row" style="margin-bottom:1rem;">
+                    <div class="field-group">
+                      <label>Slug (Auto generated or override)</label>
+                      <input type="text" id="admin-news-slug" placeholder="stock-market-hits-all-time-high">
+                    </div>
+                    <div class="field-group">
+                      <label>Author / Source</label>
+                      <input type="text" id="admin-news-author" placeholder="FinVest News Desk">
+                    </div>
+                  </div>
+
+                  <div class="field-group" style="margin-bottom:1rem;">
+                    <label>Short Description / Excerpt</label>
+                    <input type="text" id="admin-news-short-desc" required placeholder="Faint summaries for indices grid cards...">
+                  </div>
+
+                  <div class="field-group" style="margin-bottom:1rem;">
+                    <label>Full Content (Rich Text / Markdown support)</label>
+                    <textarea id="admin-news-content" rows="10" required style="resize:vertical; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.75rem; color:var(--color-text); font-family:inherit; line-height:1.6;"></textarea>
+                  </div>
+
+                  <!-- Drag and Drop Image Upload Wrapper -->
+                  <div class="field-group" style="margin-bottom:1.5rem;">
+                    <label>Featured Image Upload (Drag & Drop or Click)</label>
+                    <div class="upload-drop-zone" id="news-image-dropzone" style="border:2px dashed var(--color-border); border-radius:12px; padding:2rem; text-align:center; cursor:pointer; background:rgba(0,0,0,0.02); transition:all 0.2s;">
+                      <span style="font-size:2rem; display:block; margin-bottom:0.5rem;">📁</span>
+                      <p style="margin:0; font-size:0.88rem; opacity:0.8;">Drag & drop your featured image here, or <span style="color:var(--color-accent); font-weight:700;">browse files</span></p>
+                      <span style="font-size:0.72rem; opacity:0.6; display:block; margin-top:0.25rem;">Supports JPG, PNG, WebP. Compression will be applied automatically.</span>
+                    </div>
+                    <input type="file" id="news-image-file-input" style="display:none;" accept="image/*">
+                    
+                    <div id="news-image-preview-wrap" style="display:none; margin-top:1rem; align-items:center; gap:1rem; border:1px solid var(--color-border); border-radius:8px; padding:1rem;">
+                      <img id="news-image-preview-img" src="" style="width:100px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--color-border);">
+                      <div style="flex:1;">
+                        <span style="font-size:0.8rem; display:block; font-weight:700;" id="news-image-preview-name">image.png</span>
+                        <span style="font-size:0.72rem; opacity:0.6;" id="news-image-preview-size">145 KB</span>
+                      </div>
+                      <div style="display:flex; gap:0.5rem;">
+                        <button type="button" class="btn outline" id="news-image-preview-replace" style="padding:0.35rem 0.75rem; font-size:0.72rem;">Replace</button>
+                        <button type="button" class="btn outline" id="news-image-preview-remove" style="padding:0.35rem 0.75rem; font-size:0.72rem; color:var(--color-error); border-color:rgba(239,68,68,0.2);">Remove</button>
+                      </div>
+                    </div>
+                    
+                    <div class="field-group" style="margin-top:1rem;">
+                      <label>Or use Image Unsplash URL</label>
+                      <input type="url" id="admin-news-image-url" placeholder="https://images.unsplash.com/photo-...">
+                    </div>
+                  </div>
+
+                  <div class="form-row" style="margin-bottom:1rem;">
+                    <div class="field-group">
+                      <label>Category</label>
+                      <select id="admin-news-category">
+                        <option value="Personal Finance">Personal Finance</option>
+                        <option value="Investing">Investing</option>
+                        <option value="Taxes & Retirement">Taxes & Retirement</option>
+                      </select>
+                    </div>
+                    <div class="field-group">
+                      <label>Tags (Comma separated)</label>
+                      <input type="text" id="admin-news-tags" placeholder="e.g. Treasury, S&P 500, Yields">
+                    </div>
+                  </div>
+
+                  <div class="form-row" style="margin-bottom:1.5rem;">
+                    <div class="field-group">
+                      <label>Publish Date</label>
+                      <input type="datetime-local" id="admin-news-publish-date">
+                    </div>
+                    <div class="field-group">
+                      <label>Status</label>
+                      <select id="admin-news-status">
+                        <option value="Publish">Publish</option>
+                        <option value="Draft">Draft</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Toggles -->
+                  <div style="display:flex; flex-wrap:wrap; gap:1.5rem; margin-bottom:2rem; background:rgba(0,0,0,0.02); padding:1rem; border-radius:8px;">
+                    <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.88rem;">
+                      <input type="checkbox" id="admin-news-featured">
+                      <span>⭐ Featured News</span>
+                    </label>
+                    <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.88rem;">
+                      <input type="checkbox" id="admin-news-trending">
+                      <span>🔥 Trending Article</span>
+                    </label>
+                    <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.88rem;">
+                      <input type="checkbox" id="admin-news-breaking">
+                      <span>🚨 Breaking News Banner</span>
+                    </label>
+                  </div>
+
+                  <!-- SEO Settings -->
+                  <h4 style="margin-bottom:1rem; border-bottom:1px solid var(--color-border); padding-bottom:0.5rem;">SEO Configurations</h4>
+                  <div class="field-group" style="margin-bottom:1rem;">
+                    <label>SEO Title</label>
+                    <input type="text" id="admin-news-seo-title" placeholder="Meta title for Google search index...">
+                  </div>
+                  <div class="field-group" style="margin-bottom:1rem;">
+                    <label>Meta Description</label>
+                    <input type="text" id="admin-news-seo-desc" placeholder="Search snippet showing target summary...">
+                  </div>
+                  <div class="field-group" style="margin-bottom:2rem;">
+                    <label>Canonical URL</label>
+                    <input type="url" id="admin-news-canonical" placeholder="http://localhost:8083/#news/slug">
+                  </div>
+
+                  <div style="display:flex; gap:1rem;">
+                    <button type="submit" class="btn primary" style="flex:2;">Save Article</button>
+                    <button type="button" class="btn outline" id="admin-news-cancel-btn" style="flex:1;">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- D. Categories & Tags Sub-Tab -->
+            <div id="news-tab-panel-categories" class="news-tab-content" style="display:none; margin-top:1rem;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+                <div class="checkout-panel">
+                  <h3>News Categories</h3>
+                  <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1rem;" id="admin-news-cat-list">
+                    <!-- Categories list -->
+                  </div>
+                </div>
+                <div class="checkout-panel">
+                  <h3>News Tags</h3>
+                  <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1rem;" id="admin-news-tag-list">
+                    <!-- Tags list -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- E. Media Library Sub-Tab -->
+            <div id="news-tab-panel-media" class="news-tab-content" style="display:none; margin-top:1rem;">
+              <div class="checkout-panel">
+                <h3>News Asset Uploads</h3>
+                <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:1.25rem; margin-top:1.5rem;" id="admin-news-media-grid">
+                  <!-- Rendered media items -->
+                </div>
+              </div>
+            </div>
+
+            <!-- F. SEO & Schema Sub-Tab -->
+            <div id="news-tab-panel-seo" class="news-tab-content" style="display:none; margin-top:1rem;">
+              <div class="checkout-panel">
+                <h3>Structured Data & XML Sitemaps</h3>
+                <p style="font-size:0.85rem; opacity:0.8; margin-bottom:1.5rem;">The platform automatically generates schema-compliant metadata for Google indexing engines.</p>
+                <div style="display:flex; flex-direction:column; gap:1rem;">
+                  <button id="admin-news-gen-sitemap" class="btn primary" style="width:fit-content;">Generate XML Sitemap</button>
+                  <pre id="admin-news-seo-output" style="background:var(--color-muted); padding:1rem; border-radius:8px; font-family:monospace; font-size:0.78rem; max-height:220px; overflow-y:auto; border:1px solid var(--color-border); display:none;"></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- G. Settings Sub-Tab -->
+            <div id="news-tab-panel-settings" class="news-tab-content" style="display:none; margin-top:1rem;">
+              <div class="checkout-panel" style="max-width:500px;">
+                <h3>News Feed Settings</h3>
+                <div style="display:flex; flex-direction:column; gap:1.25rem; margin-top:1.5rem;">
+                  <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                    <span>Auto-compress Images on Upload</span>
+                    <input type="checkbox" checked>
+                  </label>
+                  <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; border-top:1px solid var(--color-border); padding-top:1rem;">
+                    <span>Show Share Buttons on Article Detail</span>
+                    <input type="checkbox" id="settings-news-share" checked>
+                  </label>
+                  <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; border-top:1px solid var(--color-border); padding-top:1rem;">
+                    <span>Allow Reader Comments on News</span>
+                    <input type="checkbox" checked>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Articles Manager Subpanel -->
+          <div id="admin-panel-posts" class="admin-subpanel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+              <h2>Finance Articles</h2>
+              <button id="admin-create-post-btn" class="btn primary">+ Write Article</button>
+            </div>
+            
+            <div id="admin-post-editor-form-wrap" class="checkout-panel" style="display:none; margin-bottom:2rem;">
+              <h3 id="admin-editor-title">Write New Guide</h3>
+              <form id="admin-post-form">
+                <input type="hidden" id="admin-post-edit-id">
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Article Title</label>
+                    <input type="text" id="admin-post-title" required>
+                  </div>
+                  <div class="field-group">
+                    <label>Category</label>
+                    <select id="admin-post-category" required></select>
+                  </div>
+                </div>
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Cover Image URL</label>
+                    <input type="url" id="admin-post-image">
+                  </div>
+                  <div class="field-group">
+                    <label>Tags (Comma Separated)</label>
+                    <input type="text" id="admin-post-tags" placeholder="e.g. SIP, Investing">
+                  </div>
+                </div>
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Scheduled Publishing Date (Optional)</label>
+                    <input type="datetime-local" id="admin-post-schedule">
+                  </div>
+                  <div class="field-group">
+                    <label>Status</label>
+                    <select id="admin-post-status">
+                      <option value="Draft">Draft</option>
+                      <option value="Published">Published</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>SEO Meta Title</label>
+                    <input type="text" id="admin-post-seo-title">
+                  </div>
+                  <div class="field-group">
+                    <label>SEO Meta Description</label>
+                    <input type="text" id="admin-post-seo-desc">
+                  </div>
+                </div>
+                <div class="field-group" style="margin-bottom:1rem;">
+                  <label>Short Excerpt</label>
+                  <input type="text" id="admin-post-excerpt" required>
+                </div>
+                <div class="field-group" style="margin-bottom:1.5rem;">
+                  <label>Content (Supports Markdown)</label>
+                  <textarea id="admin-post-content" rows="12" required style="resize:none; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.75rem; color:var(--color-text); font-family:monospace;"></textarea>
+                </div>
+                <div style="display:flex; gap:1rem;">
+                  <button type="submit" class="btn primary">Save Post</button>
+                  <button type="button" id="admin-post-cancel-btn" class="btn outline">Cancel</button>
+                </div>
+              </form>
+            </div>
+            
+            <div class="admin-table-container">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Article Details</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Views</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-posts-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 3. Credit Cards Subpanel -->
+          <div id="admin-panel-cards" class="admin-subpanel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+              <h2>Credit Cards Manager</h2>
+              <div style="display:flex; gap:0.5rem;">
+                <button id="admin-create-card-btn" class="btn primary">+ Add Card</button>
+                <a href="/api/cards/export" target="_blank" class="btn outline" style="text-decoration:none; padding:0.5rem 1rem; font-size:0.85rem; line-height:1.8;">Export CSV</a>
+              </div>
+            </div>
+            
+            <div class="checkout-panel" style="margin-bottom:2rem; padding:1.5rem; background:rgba(59,130,246,0.04);">
+              <h4>Bulk CSV Import</h4>
+              <p style="font-size:0.78rem; opacity:0.8; margin-bottom:1rem;">Paste CSV rows (Format: name,bank,network,annualFee,joiningFee,apr,graceDays,minIncome,creditScore,welcomeBonus,rewardRate,cashback,airportLounge,pros,cons,applyLink)</p>
+              <textarea id="admin-csv-import-text" rows="3" placeholder="Gold,Apex Bank,Visa,0,0,36,45,25000,700,Bonus points,2%,1%,None,Free,None,http://apply" style="width:100%; font-family:monospace; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.75rem; color:var(--color-text); font-size:0.8rem; margin-bottom:0.75rem;"></textarea>
+              <button id="btn-submit-csv-import" class="btn outline" style="padding:0.4rem 1.2rem; font-size:0.8rem;">Upload & Import CSV</button>
+            </div>
+
+            <div id="admin-card-editor-form-wrap" class="checkout-panel" style="display:none; margin-bottom:2rem;">
+              <h3 id="admin-card-editor-title">Add New Credit Card</h3>
+              <form id="admin-card-form">
+                <input type="hidden" id="admin-card-edit-id">
+                
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Card Name</label>
+                    <input type="text" id="admin-card-name" required>
+                  </div>
+                  <div class="field-group">
+                    <label>Issuing Bank</label>
+                    <input type="text" id="admin-card-bank" required>
+                  </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Network</label>
+                    <select id="admin-card-network">
+                      <option value="Visa">Visa</option>
+                      <option value="Mastercard">Mastercard</option>
+                      <option value="Amex">Amex</option>
+                      <option value="RuPay">RuPay</option>
+                    </select>
+                  </div>
+                  <div class="field-group">
+                    <label>Card Image URL</label>
+                    <input type="text" id="admin-card-image" placeholder="/public/uploads/default.png">
+                  </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Annual Fee (₹)</label>
+                    <input type="number" id="admin-card-annual-fee" value="0">
+                  </div>
+                  <div class="field-group">
+                    <label>Joining Fee (₹)</label>
+                    <input type="number" id="admin-card-joining-fee" value="0">
+                  </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>APR (%)</label>
+                    <input type="number" id="admin-card-apr" value="36">
+                  </div>
+                  <div class="field-group">
+                    <label>Interest Free Days</label>
+                    <input type="number" id="admin-card-grace-days" value="45">
+                  </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Min Monthly Income (₹)</label>
+                    <input type="number" id="admin-card-min-income" value="25000">
+                  </div>
+                  <div class="field-group">
+                    <label>Credit Score Required</label>
+                    <input type="number" id="admin-card-min-score" value="700">
+                  </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Welcome Bonus</label>
+                    <input type="text" id="admin-card-bonus">
+                  </div>
+                  <div class="field-group">
+                    <label>Rewards Rate</label>
+                    <input type="text" id="admin-card-reward-rate">
+                  </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Airport Lounge Access</label>
+                    <input type="text" id="admin-card-lounge" placeholder="e.g. 4 complimentary visits per year">
+                  </div>
+                  <div class="field-group">
+                    <label>Cashback Rate</label>
+                    <input type="text" id="admin-card-cashback" placeholder="e.g. 5% online, 1% offline">
+                  </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom:1rem;">
+                  <div class="field-group">
+                    <label>Pros (comma separated)</label>
+                    <input type="text" id="admin-card-pros" placeholder="e.g. High rewards, free lounge">
+                  </div>
+                  <div class="field-group">
+                    <label>Cons (comma separated)</label>
+                    <input type="text" id="admin-card-cons" placeholder="e.g. High joining fee, high APR">
+                  </div>
+                </div>
+
+                <div class="field-group" style="margin-bottom:1rem;">
+                  <label>Apply Page / Referral URL</label>
+                  <input type="url" id="admin-card-apply" placeholder="https://example.com/apply">
+                </div>
+
+                <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+                  <button type="submit" class="btn primary">Save Card</button>
+                  <button type="button" id="admin-card-cancel-btn" class="btn outline">Cancel</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="admin-table-container">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Card Name</th>
+                    <th>Bank & Network</th>
+                    <th>Annual Fee</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-cards-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4. Loans & Rates Subpanel -->
+          <div id="admin-panel-loans" class="admin-subpanel">
+            <h2>Loans Interest Rates & Parameters</h2>
+            <form id="admin-loans-form" class="checkout-panel" style="margin-top:1.5rem;">
+              <div class="form-row" style="margin-bottom:1.5rem;">
+                <div class="field-group">
+                  <label>🏠 Home Loan Rate (%)</label>
+                  <input type="number" id="admin-rate-home" step="0.05" value="8.5">
+                </div>
+                <div class="field-group">
+                  <label>👤 Personal Loan Rate (%)</label>
+                  <input type="number" id="admin-rate-personal" step="0.05" value="10.5">
+                </div>
+              </div>
+              <div class="form-row" style="margin-bottom:1.5rem;">
+                <div class="field-group">
+                  <label>🚗 Auto / Vehicle Loan Rate (%)</label>
+                  <input type="number" id="admin-rate-auto" step="0.05" value="9.0">
+                </div>
+                <div class="field-group">
+                  <label>🎓 Student / Education Loan Rate (%)</label>
+                  <input type="number" id="admin-rate-student" step="0.05" value="8.0">
+                </div>
+              </div>
+              <button type="submit" class="btn primary">Update Rates Settings</button>
+            </form>
+          </div>
+
+          <!-- 5. Investing Content Subpanel -->
+          <div id="admin-panel-investing" class="admin-subpanel">
+            <h2>Investing & Stock Market Guides</h2>
+            <p style="opacity:0.7; font-size:0.85rem; margin-bottom:1.5rem;">Add and manage listings for ETFs, Mutual Funds, Bonds, Gold, and REITs.</p>
+            
+            <div style="display:grid; grid-template-columns: 300px 1fr; gap:2.5rem;">
+              <form id="admin-invest-form" class="checkout-panel">
+                <h4 id="admin-invest-editor-title">Add Investment Item</h4>
+                <input type="hidden" id="admin-invest-id">
+                <div class="field-group" style="margin-bottom:1rem;">
+                  <label>Item Name / Ticker</label>
+                  <input type="text" id="admin-invest-name" required placeholder="e.g. S&P 500 ETF">
+                </div>
+                <div class="field-group" style="margin-bottom:1rem;">
+                  <label>Category</label>
+                  <select id="admin-invest-category">
+                    <option value="etf">ETF</option>
+                    <option value="mutual-fund">Mutual Fund</option>
+                    <option value="bond">Bonds</option>
+                    <option value="gold">Gold / Commodities</option>
+                    <option value="reit">REIT</option>
+                    <option value="ipo">IPO Market</option>
+                  </select>
+                </div>
+                <div class="field-group" style="margin-bottom:1.5rem;">
+                  <label>Brief Description</label>
+                  <textarea id="admin-invest-desc" rows="4" required style="resize:none; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.5rem; color:var(--color-text); font-family:inherit;"></textarea>
+                </div>
+                <button type="submit" class="btn primary w-full">Save Item</button>
+              </form>
+              
+              <div class="admin-table-container">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>Description</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-invest-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- 7. Calculators Config Subpanel -->
+          <div id="admin-panel-calculators" class="admin-subpanel">
+            <h2>Calculators List Configuration</h2>
+            <p style="opacity:0.7; font-size:0.85rem; margin-bottom:2rem;">Toggle calculators availability across the public frontend view.</p>
+            <div class="checkout-panel" style="max-width:500px;">
+              <div style="display:flex; flex-direction:column; gap:1.25rem;">
+                <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                  <span>📈 SIP Compounding Calculator</span>
+                  <input type="checkbox" class="calc-config-toggle" data-calc="sip" checked>
+                </label>
+                <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; border-top:1px solid var(--color-border); padding-top:1rem;">
+                  <span>🏠 EMI Mortgage Calculator</span>
+                  <input type="checkbox" class="calc-config-toggle" data-calc="emi" checked>
+                </label>
+                <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; border-top:1px solid var(--color-border); padding-top:1rem;">
+                  <span>🏦 Debt Payoff Accelerator</span>
+                  <input type="checkbox" class="calc-config-toggle" data-calc="payoff" checked>
+                </label>
+                <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; border-top:1px solid var(--color-border); padding-top:1rem;">
+                  <span>💳 Credit Card Interest Calculator</span>
+                  <input type="checkbox" class="calc-config-toggle" data-calc="cc-interest" checked>
+                </label>
+                <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; border-top:1px solid var(--color-border); padding-top:1rem;">
+                  <span>🔄 Balance Transfer Calculator</span>
+                  <input type="checkbox" class="calc-config-toggle" data-calc="cc-transfer" checked>
+                </label>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- 10. Media Library Subpanel -->
+          <div id="admin-panel-media" class="admin-subpanel">
+            <h2>Media Library & Assets</h2>
+            <div class="checkout-panel" style="margin-top:1.5rem; margin-bottom:2rem;">
+              <h4>Upload Asset Link</h4>
+              <form id="admin-media-upload-form" style="display:flex; gap:1rem; margin-top:1rem;">
+                <input type="text" id="admin-media-title" required placeholder="Asset title..." style="flex:1;">
+                <input type="url" id="admin-media-url" required placeholder="Image/File Unsplash URL..." style="flex:2;">
+                <button type="submit" class="btn primary">Register Media</button>
+              </form>
+            </div>
+            
+            <div id="admin-media-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:1.5rem;">
+              <!-- Dynamic media cards -->
+            </div>
+          </div>
+
+          <!-- 11. Ads Manager Subpanel -->
+          <div id="admin-panel-ads" class="admin-subpanel">
+            <h2>Advertisement Manager</h2>
+            <p style="opacity:0.7; font-size:0.85rem; margin-bottom:1.5rem;">Insert custom header, sidebar, footer, or dynamic AdSense snippet tags.</p>
+            <form id="admin-ads-form" class="checkout-panel">
+              <div style="margin-bottom:1.5rem;">
+                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                  <input type="checkbox" id="admin-ads-enable">
+                  <strong>Enable Platform Ads globally</strong>
+                </label>
+              </div>
+              <div class="field-group" style="margin-bottom:1rem;">
+                <label>Header Ad Banner Script</label>
+                <textarea id="admin-ads-header-code" rows="2" style="font-family:monospace; resize:none; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.5rem; color:var(--color-text);"></textarea>
+              </div>
+              <div class="field-group" style="margin-bottom:1rem;">
+                <label>Sidebar Block Script</label>
+                <textarea id="admin-ads-sidebar-code" rows="2" style="font-family:monospace; resize:none; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.5rem; color:var(--color-text);"></textarea>
+              </div>
+              <div class="field-group" style="margin-bottom:1.5rem;">
+                <label>Footer Placement Script</label>
+                <textarea id="admin-ads-footer-code" rows="2" style="font-family:monospace; resize:none; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.5rem; color:var(--color-text);"></textarea>
+              </div>
+              <button type="submit" class="btn primary">Save Ad Scripts Settings</button>
+            </form>
+          </div>
+
+          <!-- 12. Advanced Analytics Subpanel -->
+          <div id="admin-panel-analytics" class="admin-subpanel">
+            <h2>Advanced Analytics & Device Statistics</h2>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; margin-top:1.5rem;">
+              <div class="checkout-panel">
+                <h3>Country Statistics</h3>
+                <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1rem;" id="admin-analytics-countries">
+                  <!-- Countries -->
+                </div>
+              </div>
+              <div class="checkout-panel">
+                <h3>Device / Platform Breakdown</h3>
+                <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1rem;" id="admin-analytics-devices">
+                  <!-- Devices -->
+                </div>
+              </div>
+            </div>
+            <div class="checkout-panel" style="margin-top:2rem;">
+              <h3>Top Searched Terms</h3>
+              <div id="admin-analytics-search-terms" style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1rem;">
+                <!-- Terms tags -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 13. User Directory Subpanel -->
+          <div id="admin-panel-users" class="admin-subpanel">
+            <h2>Users & Access Directory</h2>
+            <div class="admin-table-container" style="margin-top:1.5rem;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Email Address</th>
+                    <th>Display Name</th>
+                    <th>Assigned Role</th>
+                    <th>Permissions Level</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 14. SEO Settings Subpanel -->
+          <div id="admin-panel-seo" class="admin-subpanel">
+            <h2>SEO & Redirect Manager</h2>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; margin-top:1.5rem;">
+              <form id="admin-seo-form" class="checkout-panel">
+                <h3>Site Default Meta Tags</h3>
+                <div class="field-group" style="margin-bottom:1rem; margin-top:1rem;">
+                  <label>Default Title Tag</label>
+                  <input type="text" id="admin-seo-site-title" value="FinVest Hub - Digital Wealth Engine">
+                </div>
+                <div class="field-group" style="margin-bottom:1rem;">
+                  <label>Default Description</label>
+                  <textarea id="admin-seo-site-desc" rows="3" style="resize:none; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.5rem; color:var(--color-text); font-family:inherit;"></textarea>
+                </div>
+                <div class="field-group" style="margin-bottom:1.5rem;">
+                  <label>Robots.txt Content</label>
+                  <textarea id="admin-seo-robots" rows="3" style="font-family:monospace; resize:none; background:var(--color-bg); border:1px solid var(--color-border); border-radius:8px; padding:0.5rem; color:var(--color-text);"></textarea>
+                </div>
+                <button type="submit" class="btn primary w-full">Update SEO Standards</button>
+              </form>
+              
+              <div class="checkout-panel">
+                <h3>URL Redirect Mapping</h3>
+                <form id="admin-seo-redirect-form" style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1rem;">
+                  <input type="text" id="admin-redirect-old" required placeholder="/old-path-link">
+                  <input type="text" id="admin-redirect-new" required placeholder="/new-path-link">
+                  <button type="submit" class="btn primary">Register Mapping Rule</button>
+                </form>
+                <div style="margin-top:1.5rem; font-size:0.85rem;" id="admin-seo-redirects-list">
+                  <!-- Active redirects -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 15. Platform Settings Subpanel -->
+          <div id="admin-panel-settings" class="admin-subpanel">
+            <h2>Site Settings & System Backup</h2>
+            <form id="admin-settings-form" class="checkout-panel" style="margin-top:1.5rem; max-width:600px;">
+              <div class="form-row" style="margin-bottom:1rem;">
+                <div class="field-group">
+                  <label>Platform Name</label>
+                  <input type="text" id="admin-sett-name" required value="FinVest Hub">
+                </div>
+                <div class="field-group">
+                  <label>Tagline</label>
+                  <input type="text" id="admin-sett-tagline" required value="Investing Guide Platform">
+                </div>
+              </div>
+              <div class="form-row" style="margin-bottom:1rem;">
+                <div class="field-group">
+                  <label>Contact Email</label>
+                  <input type="email" id="admin-sett-email" value="support@finvesthub.com">
+                </div>
+                <div class="field-group">
+                  <label>SMTP Mail Host</label>
+                  <input type="text" id="admin-sett-smtp" placeholder="smtp.mailgun.org">
+                </div>
+              </div>
+              <div class="form-row" style="margin-bottom:1.5rem;">
+                <div class="field-group">
+                  <label>Site Accent Theme</label>
+                  <select id="admin-sett-theme">
+                    <option value="emerald">Classic Obsidian Emerald</option>
+                    <option value="sapphire">Ocean Slate Sapphire</option>
+                    <option value="ruby">Warm Charcoal Ruby</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label>Maintenance Text</label>
+                  <input type="text" id="admin-sett-maint-msg" value="Down for regular database audits.">
+                </div>
+              </div>
+              <button type="submit" class="btn primary">Save Site Configurations</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 11. LEGAL DISCLAIMER VIEW ────────────── -->
+    <section id="view-disclaimer" class="app-view">
+      <div class="view-header-title">
+        <h1>IMPORTANT LEGAL DISCLAIMER</h1>
+        <p>Please read this disclaimer carefully before using FinVest Hub.</p>
+      </div>
+      <div class="checkout-panel legal-doc-content" style="line-height:1.75; font-size:0.95rem;">
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">1. Educational Purpose Only</h3>
+        <p style="margin-bottom:1.5rem;">The content published on this website is provided solely for educational and informational purposes. Nothing on this website constitutes financial, investment, legal, tax, accounting, or professional advice.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">2. No Financial Endorsements</h3>
+        <p style="margin-bottom:1.5rem;">This website does not recommend, endorse, or promote the purchase or sale of any stock, mutual fund, ETF, cryptocurrency, bond, commodity, derivative, or other financial instrument.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">3. Projections & Illustrations</h3>
+        <p style="margin-bottom:1.5rem;">All articles, calculators, examples, opinions, forecasts, projections, and illustrations are for educational purposes only and should not be interpreted as investment recommendations or guarantees of future performance.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">4. Risks of Investing</h3>
+        <p style="margin-bottom:1.5rem;">Investing involves risk, including the possible loss of principal. Past performance does not guarantee future results. Users are solely responsible for their financial decisions. Before making any investment or financial decision, users should conduct their own research and consult a qualified financial advisor, tax professional, accountant, or legal professional.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">5. Warranty & Liability Limits</h3>
+        <p style="margin-bottom:1.5rem;">Although reasonable efforts are made to provide accurate and up-to-date information, this website makes no warranties regarding the accuracy, completeness, reliability, or suitability of any information presented. The website owner, authors, contributors, developers, employees, affiliates, and partners shall not be liable for any direct, indirect, incidental, consequential, or special damages arising from the use of this website or reliance on any information provided.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">6. Calculators & Estimations</h3>
+        <p style="margin-bottom:1.5rem;">Calculators, projections, and financial tools provide estimates only and should not be relied upon as exact financial, tax, or investment calculations.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">7. Third-Party Links & Ads</h3>
+        <p style="margin-bottom:1.5rem;">External links are provided for convenience only. This website is not responsible for the content, policies, products, or services of third-party websites. Advertisements displayed on this website do not constitute endorsements or recommendations.</p>
+        
+        <p style="font-weight:700; margin-top:2rem; border-top:1px solid var(--color-border); padding-top:1rem;">By accessing and using this website, users acknowledge that they have read, understood, and agreed to this disclaimer and all website terms and policies.</p>
+      </div>
+    </section>
+
+    <!-- ── 12. PRIVACY POLICY VIEW ──────────────── -->
+    <section id="view-privacy" class="app-view">
+      <div class="view-header-title">
+        <h1>Privacy Policy</h1>
+        <p>Your privacy is important to us. Here is how we collect, use, and protect your information.</p>
+      </div>
+      <div class="checkout-panel legal-doc-content" style="line-height:1.75; font-size:0.95rem;">
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">1. Data Collection</h3>
+        <p style="margin-bottom:1.5rem;">We collect emails for newsletter subscriptions, session tokens for user registrations, and cookies for Google AdSense advertisement placements and Google Analytics metrics logging.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">2. Google AdSense & Analytics Compliance</h3>
+        <p style="margin-bottom:1.5rem;">This site uses Google AdSense cookies to serve ads based on user visits. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this site. Users may opt out of personalized advertising by visiting Google Ads Settings.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">3. GDPR & CCPA Compliance</h3>
+        <p style="margin-bottom:1.5rem;">Under General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA), users have the right to access, export, or request deletion of their personal data (such as emails or history profiles). Please contact us to request data removals.</p>
+      </div>
+    </section>
+
+    <!-- ── 13. TERMS OF SERVICE VIEW ────────────── -->
+    <section id="view-terms" class="app-view">
+      <div class="view-header-title">
+        <h1>Terms of Service</h1>
+        <p>Please read these terms carefully before accessing FinVest Hub.</p>
+      </div>
+      <div class="checkout-panel legal-doc-content" style="line-height:1.75; font-size:0.95rem;">
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">1. Terms Acceptance</h3>
+        <p style="margin-bottom:1.5rem;">By using FinVest Hub, you agree to comply with these terms, acceptable usage policies, and the legal disclaimers. If you do not agree, do not access our tools.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">2. Intellectual Property Rights</h3>
+        <p style="margin-bottom:1.5rem;">The layout structures, codebases, custom calculator math implementations, articles, and glossaries are the intellectual property of FinVest Hub.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">3. Dispute Resolution & Governing Law</h3>
+        <p style="margin-bottom:1.5rem;">Any dispute arising out of or relating to these terms shall be subject to the exclusive jurisdiction of the courts of Bangalore, Karnataka, India.</p>
+      </div>
+    </section>
+
+    <!-- ── 14. COOKIE POLICY VIEW ───────────────── -->
+    <section id="view-cookie" class="app-view">
+      <div class="view-header-title">
+        <h1>Cookie Policy</h1>
+        <p>Learn how we utilize cookies to keep sessions alive and serve AdSense listings.</p>
+      </div>
+      <div class="checkout-panel legal-doc-content" style="line-height:1.75; font-size:0.95rem;">
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">1. Essential Cookies</h3>
+        <p style="margin-bottom:1.5rem;">Used to verify session tokens when user profiles update or when accessing the admin panel.</p>
+        
+        <h3 style="margin-bottom:1rem; color:var(--color-accent);">2. Third-Party Advertising Cookies</h3>
+        <p style="margin-bottom:1.5rem;">Google AdSense places cookies on our site to deliver targeted marketing ads. You can disable cookies directly in your browser preferences.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- AdSense Bottom Placement banner -->
+  <div class="ad-placement-global" id="ad-bottom-banner" style="margin-top:4rem;"></div>
+
+  <!-- Cookie Consent Popup Bar -->
+  <div id="cookie-consent-bar" class="cookie-consent-bar" style="display:none;">
+    <div class="cookie-content">
+      <p>We use essential cookies to manage your sessions, and Google AdSense & Analytics cookies to deliver targeted education ads. By using FinVest Hub, you consent to our <a href="#cookie" style="text-decoration:underline;">Cookie Policy</a>.</p>
+      <button id="btn-accept-cookies" class="btn primary" style="padding: 0.5rem 1rem; font-size: 0.78rem; white-space:nowrap;">Accept Cookies</button>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <!-- Visible footer disclaimer block -->
+    <div class="footer-legal-disclaimer" style="max-width:1300px; margin:0 auto 2.5rem auto; padding-bottom:2rem; border-bottom:1px solid var(--color-border); font-size:0.75rem; line-height:1.6; opacity:0.65; text-align:justify;">
+      <strong>⚠️ General Disclaimer:</strong> The content published on FinVest Hub is provided solely for educational and informational purposes. Nothing on this website constitutes financial, investment, legal, tax, accounting, or professional advice. This website does not recommend, endorse, or promote the purchase or sale of any stock, mutual fund, ETF, or financial instrument. Investing involves risk, including the possible loss of principal. Users are solely responsible for their financial decisions. Please consult a qualified certified professional before making any financial decisions.
+    </div>
+
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>⚡ FinVest HUB</h3>
+        <p>Providing free financial tools and educational investing dictionaries to promote organic compound growth literacy.</p>
+      </div>
+      <div class="footer-links-col">
+        <h4>Resources</h4>
+        <a href="#articles">Articles</a>
+        <a href="#calculators">Calculators</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Assistance</h4>
+        <a href="#tools">Risk Profile Quiz</a>
+        <a href="#glossary">Terminology Glossary</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Legal & Privacy</h4>
+        <a href="#disclaimer">Legal Disclaimer</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#cookie">Cookie Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FinVest Hub. Built with pure performance SPA architecture. AdSense Friendly.</p>
+    </div>
+  </footer>
+
+  <script src="src/js/main.js"></script>
+</body>
+</html>

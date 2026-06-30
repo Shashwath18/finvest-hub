@@ -1,0 +1,12 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+.vscode/
+.idea/
+.DS_Store
+
+# DB Backups
+db/backup_*
