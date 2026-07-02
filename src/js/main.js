@@ -57,23 +57,249 @@
     setTimeout(() => toast.remove(), 4000);
   }
 
+  const USE_SUPABASE = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+  const SUPABASE_URL = "https://augjybpfsmckgsyygkuv.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_ni4WJmJeQAOlE_KtBcyzcw_As_rpiE5";
+
+  async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
   async function fetchApi(endpoint, options = {}) {
-    const headers = { 'Content-Type': 'application/json' };
-    if (state.token) {
-      headers['Authorization'] = `Bearer ${state.token}`;
+    if (!USE_SUPABASE) {
+      const headers = { 'Content-Type': 'application/json' };
+      if (state.token) {
+        headers['Authorization'] = `Bearer ${state.token}`;
+      }
+      
+      const opt = Object.assign({ headers }, options);
+      if (opt.body && typeof opt.body === 'object') {
+        opt.body = JSON.stringify(opt.body);
+      }
+      
+      const res = await fetch(endpoint, opt);
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `HTTP error ${res.status}`);
+      }
+      
+      return res.json().catch(() => ({}));
     }
-    
-    const opt = Object.assign({ headers }, options);
-    if (opt.body && typeof opt.body === 'object') {
-      opt.body = JSON.stringify(opt.body);
+
+    // Direct Supabase PostgREST implementation
+    const headers = {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`
+    };
+
+    const method = options.method || 'GET';
+    const bodyObj = options.body ? (typeof options.body === 'string' ? JSON.parse(options.body) : options.body) : null;
+
+    const url = new URL(endpoint, window.location.origin);
+    const path = url.pathname;
+    const params = url.searchParams;
+
+    let targetUrl = '';
+    let fetchOptions = { method, headers };
+
+    if (path.startsWith('/api/posts/detail')) {
+      const id = params.get('id');
+      const slug = params.get('slug');
+      if (method === 'GET') {
+        const filter = id ? `id=eq.${id}` : `slug=eq.${slug}`;
+        targetUrl = `${SUPABASE_URL}/rest/v1/posts?${filter}&select=*`;
+      } else if (method === 'PUT') {
+        fetchOptions.method = 'PATCH';
+        fetchOptions.body = JSON.stringify(bodyObj);
+        targetUrl = `${SUPABASE_URL}/rest/v1/posts?id=eq.${id}`;
+      } else if (method === 'DELETE') {
+        targetUrl = `${SUPABASE_URL}/rest/v1/posts?id=eq.${id}`;
+      }
+    } else if (path === '/api/posts') {
+      if (method === 'GET') {
+        const status = params.get('status');
+        const filter = status === 'all' ? '' : 'status=eq.Published';
+        targetUrl = `${SUPABASE_URL}/rest/v1/posts?select=*${filter ? '&' + filter : ''}`;
+      } else if (method === 'POST') {
+        fetchOptions.body = JSON.stringify(bodyObj);
+        targetUrl = `${SUPABASE_URL}/rest/v1/posts`;
+      }
+    } else if (path.startsWith('/api/news/detail')) {
+      const id = params.get('id');
+      const slug = params.get('slug');
+      if (method === 'GET') {
+        const filter = id ? `id=eq.${id}` : `slug=eq.${slug}`;
+        targetUrl = `${SUPABASE_URL}/rest/v1/news?${filter}&select=*`;
+      } else if (method === 'PUT') {
+        fetchOptions.method = 'PATCH';
+        fetchOptions.body = JSON.stringify(bodyObj);
+        targetUrl = `${SUPABASE_URL}/rest/v1/news?id=eq.${id}`;
+      } else if (method === 'DELETE') {
+        targetUrl = `${SUPABASE_URL}/rest/v1/news?id=eq.${id}`;
+      }
+    } else if (path === '/api/news') {
+      if (method === 'GET') {
+        const status = params.get('status');
+        const filter = status === 'all' ? '' : 'status=eq.Publish';
+        targetUrl = `${SUPABASE_URL}/rest/v1/news?select=*${filter ? '&' + filter : ''}`;
+      } else if (method === 'POST') {
+        fetchOptions.body = JSON.stringify(bodyObj);
+        targetUrl = `${SUPABASE_URL}/rest/v1/news`;
+      }
+    } else if (path === '/api/news/interaction') {
+      const { slug, action } = bodyObj;
+      const getRes = await fetch(`${SUPABASE_URL}/rest/v1/news?slug=eq.${slug}&select=*`, { headers });
+      const items = await getRes.json().catch(() => []);
+      if (items && items.length > 0) {
+        const item = items[0];
+        const updateObj = {};
+        if (action === 'view') {
+          updateObj.views = (item.views || 0) + 1;
+        } else if (action === 'like') {
+          updateObj.likes = (item.likes || 0) + 1;
+        }
+        await fetch(`${SUPABASE_URL}/rest/v1/news?slug=eq.${slug}`, {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify(updateObj)
+        });
+        return updateObj;
+      }
+      return {};
+    } else if (path === '/api/categories') {
+      if (method === 'GET') {
+        targetUrl = `${SUPABASE_URL}/rest/v1/categories?select=*`;
+      } else if (method === 'POST') {
+        fetchOptions.body = JSON.stringify(bodyObj);
+        targetUrl = `${SUPABASE_URL}/rest/v1/categories`;
+      }
+    } else if (path === '/api/cards') {
+      const id = params.get('id');
+      if (method === 'GET') {
+        targetUrl = `${SUPABASE_URL}/rest/v1/cards?select=*`;
+      } else if (method === 'POST') {
+        fetchOptions.body = JSON.stringify(bodyObj);
+        targetUrl = `${SUPABASE_URL}/rest/v1/cards`;
+      } else if (method === 'PUT') {
+        fetchOptions.method = 'PATCH';
+        fetchOptions.body = JSON.stringify(bodyObj);
+        targetUrl = `${SUPABASE_URL}/rest/v1/cards?id=eq.${id}`;
+      } else if (method === 'DELETE') {
+        targetUrl = `${SUPABASE_URL}/rest/v1/cards?id=eq.${id}`;
+      }
+    } else if (path === '/api/newsletter/subscribe') {
+      fetchOptions.body = JSON.stringify({ email: bodyObj.email, source: bodyObj.source || 'home' });
+      targetUrl = `${SUPABASE_URL}/rest/v1/subscribers`;
+    } else if (path === '/api/newsletter/subscribers') {
+      targetUrl = `${SUPABASE_URL}/rest/v1/subscribers?select=*`;
+    } else if (path === '/api/settings') {
+      if (method === 'GET') {
+        targetUrl = `${SUPABASE_URL}/rest/v1/settings?id=eq.default&select=*`;
+      } else if (method === 'POST') {
+        const checkRes = await fetch(`${SUPABASE_URL}/rest/v1/settings?id=eq.default&select=*`, { headers });
+        const checkData = await checkRes.json().catch(() => []);
+        bodyObj.id = 'default';
+        if (checkData && checkData.length > 0) {
+          fetchOptions.method = 'PATCH';
+          fetchOptions.body = JSON.stringify(bodyObj);
+          targetUrl = `${SUPABASE_URL}/rest/v1/settings?id=eq.default`;
+        } else {
+          fetchOptions.method = 'POST';
+          fetchOptions.body = JSON.stringify(bodyObj);
+          targetUrl = `${SUPABASE_URL}/rest/v1/settings`;
+        }
+      }
+    } else if (path === '/api/admin/analytics') {
+      const pRes = await fetch(`${SUPABASE_URL}/rest/v1/posts?select=*`, { headers });
+      const nRes = await fetch(`${SUPABASE_URL}/rest/v1/news?select=*`, { headers });
+      const sRes = await fetch(`${SUPABASE_URL}/rest/v1/subscribers?select=*`, { headers });
+      const pData = await pRes.json().catch(() => []);
+      const nData = await nRes.json().catch(() => []);
+      const sData = await sRes.json().catch(() => []);
+      
+      let totalViews = 0;
+      let totalLikes = 0;
+      pData.forEach(p => { totalViews += (p.views || 0); totalLikes += (p.likes || 0); });
+      nData.forEach(n => { totalViews += (n.views || 0); totalLikes += (n.likes || 0); });
+
+      return {
+        totalPosts: pData.length,
+        publishedPosts: pData.filter(p => p.status === 'Published').length,
+        draftPosts: pData.filter(p => p.status === 'Draft').length,
+        totalUsers: 1,
+        totalComments: 0,
+        totalSubscribers: sData.length,
+        totalViews,
+        totalLikes
+      };
+    } else if (path === '/api/auth/register') {
+      const { email, password, name } = bodyObj;
+      const salt = Math.random().toString(36).substring(2, 10);
+      const hash = await sha256(password + salt);
+      const newUser = {
+        id: 'usr-' + Math.random().toString(36).substring(2, 10),
+        email,
+        passwordHash: hash,
+        passwordSalt: salt,
+        name,
+        role: 'Subscriber',
+        createdAt: new Date().toISOString()
+      };
+      const regRes = await fetch(`${SUPABASE_URL}/rest/v1/users`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(newUser)
+      });
+      if (!regRes.ok) {
+        throw new Error('Registration failed');
+      }
+      const token = btoa(JSON.stringify({ email, role: 'Subscriber' }));
+      return { token, user: { email, name, role: 'Subscriber' } };
+    } else if (path === '/api/auth/login') {
+      const { email, password } = bodyObj;
+      const userRes = await fetch(`${SUPABASE_URL}/rest/v1/users?email=eq.${email}&select=*`, { headers });
+      const users = await userRes.json().catch(() => []);
+      if (!users || users.length === 0) {
+        throw new Error('Invalid email or password.');
+      }
+      const user = users[0];
+      const checkHash = await sha256(password + user.passwordSalt);
+      if (checkHash !== user.passwordHash) {
+        throw new Error('Invalid email or password.');
+      }
+      const token = btoa(JSON.stringify({ email: user.email, role: user.role }));
+      return { token, user: { email: user.email, name: user.name, role: user.role } };
+    } else if (path === '/api/auth/me') {
+      if (state.token) {
+        const decoded = JSON.parse(atob(state.token));
+        const userRes = await fetch(`${SUPABASE_URL}/rest/v1/users?email=eq.${decoded.email}&select=*`, { headers });
+        const users = await userRes.json().catch(() => []);
+        if (users && users.length > 0) {
+          return { user: { email: users[0].email, name: users[0].name, role: users[0].role } };
+        }
+      }
+      throw new Error('Unauthorized');
     }
-    
-    const res = await fetch(endpoint, opt);
+
+    if (!targetUrl) {
+      throw new Error(`Endpoint ${endpoint} not supported on Supabase serverless mode.`);
+    }
+
+    const res = await fetch(targetUrl, fetchOptions);
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}));
-      throw new Error(errData.error || `HTTP error ${res.status}`);
+      throw new Error(errData.message || `Supabase error ${res.status}`);
     }
-    
+
+    if (method === 'GET' && (path.startsWith('/api/posts/detail') || path.startsWith('/api/news/detail') || path === '/api/settings')) {
+      const items = await res.json();
+      return (items && items.length > 0) ? items[0] : (path === '/api/settings' ? {} : null);
+    }
+
     return res.json().catch(() => ({}));
   }
 
